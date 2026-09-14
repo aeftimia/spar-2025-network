@@ -1,0 +1,34 @@
+name: Materialize canonical Fall 2026 directory
+
+on:
+  push:
+    paths:
+      - .github/workflows/materialize-directory.yml
+
+permissions:
+  contents: write
+
+jobs:
+  materialize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: integrate-fall-2026-enriched-directory
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Audit and merge canonical JSON
+        run: node scripts/build-fall26-directory.mjs
+      - name: Commit audited JSON
+        run: |
+          if git diff --quiet -- data/spar_fall_2026_introductions.json; then
+            echo "Canonical JSON already materialized"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/spar_fall_2026_introductions.json
+          git commit -m "Materialize audited Fall 2026 directory JSON"
+          git push origin HEAD:integrate-fall-2026-enriched-directory
