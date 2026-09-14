@@ -11,8 +11,8 @@ const USER_LAYER_ID = "user-location-dot";
 const MENTOR_ICON = "mentor-pin";
 const MENTEE_ICON = "mentee-pin";
 const ROLE_COLORS = {
-  mentor: "#8864c9",
-  mentee: "#159783",
+  mentor: "#2563eb",
+  mentee: "#dc2626",
 };
 
 function roleFor(group: Person[]) {
