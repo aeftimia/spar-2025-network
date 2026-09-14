@@ -131,6 +131,10 @@ export default function App() {
     setMode("any");
     setSelected(null);
   };
+  const addTagFilter = (category: string, label: string) => {
+    const key = tagKey(category, label);
+    setTags((current) => (current.includes(key) ? current : [...current, key]));
+  };
 
   const filters = (
     <>
@@ -281,7 +285,29 @@ export default function App() {
             {selected.project && <div><Text size="xs" fw={700} c="dimmed" mb={4}>SPAR PROJECT</Text>{selected.projectUrl ? <Button component="a" href={selected.projectUrl} target="_blank" rel="noreferrer" variant="subtle" size="compact-sm" px={0} rightSection={<IconArrowUpRight size={14} />}>{selected.project}</Button> : <Text size="sm">{selected.project}</Text>}</div>}
             <Divider />
             <Text size="sm" className="intro-copy">{selected.intro}</Text>
-            {!!selected.tags.length && <Group gap={6}>{selected.tags.map((tag) => <Badge key={`${tag.category}:${tag.label}`} variant="light" color="gray">{tag.label}</Badge>)}</Group>}
+            {!!selected.tags.length && (
+              <Group gap={6}>
+                {selected.tags.map((tag) => {
+                  const key = tagKey(tag.category, tag.label);
+                  const active = tags.includes(key);
+                  return (
+                    <Badge
+                      key={key}
+                      component="button"
+                      type="button"
+                      variant={active ? "filled" : "light"}
+                      color={active ? "teal" : "gray"}
+                      style={{ cursor: active ? "default" : "pointer" }}
+                      onClick={() => addTagFilter(tag.category, tag.label)}
+                      aria-pressed={active}
+                      title={active ? "Already filtering by this tag" : `Filter by ${tag.label}`}
+                    >
+                      {tag.label}
+                    </Badge>
+                  );
+                })}
+              </Group>
+            )}
             {!!selected.backgroundResearchInterests?.length && <div><Text size="xs" fw={700} c="dimmed" mb={6}>BACKGROUND RESEARCH</Text><Text size="sm">{selected.backgroundResearchInterests.join(" · ")}</Text></div>}
             <Divider />
             <Group>
