@@ -98,7 +98,7 @@
         "city": "Ann Arbor",
         "lat": 42.2808,
         "lng": -83.743,
-        "evidence": "Derived from stated Fall 2026 location: Ann Arbor, Michigan / originally Pakistan"
+        "evidence": "Derived from stated location: Ann Arbor, Michigan"
       }
     },
     {
@@ -1592,7 +1592,7 @@
         "city": "Ann Arbor",
         "lat": 42.2808,
         "lng": -83.743,
-        "evidence": "Derived from stated Fall 2026 location: Ann Arbor, Michigan"
+        "evidence": "Derived from stated location: Ann Arbor, Michigan"
       }
     },
     {
@@ -1826,7 +1826,7 @@
         "city": "Madison",
         "lat": 43.0731,
         "lng": -89.4012,
-        "evidence": "Derived from stated Fall 2026 location: Madison, Wisconsin"
+        "evidence": "Derived from stated location: Madison, Wisconsin"
       }
     },
     {
@@ -2102,7 +2102,7 @@
         "city": "Cincinnati",
         "lat": 39.1031,
         "lng": -84.512,
-        "evidence": "Derived from stated Fall 2026 location: Cincinnati, Ohio"
+        "evidence": "Derived from stated location: Cincinnati, Ohio"
       }
     },
     {
@@ -2252,7 +2252,7 @@
         "city": "Belfast",
         "lat": 54.5973,
         "lng": -5.9301,
-        "evidence": "Derived from stated Fall 2026 location: Near Belfast, Northern Ireland"
+        "evidence": "Derived from stated location: near Belfast, Northern Ireland"
       }
     },
     {
@@ -2608,7 +2608,7 @@
         "city": "Baltimore",
         "lat": 39.2904,
         "lng": -76.6122,
-        "evidence": "Derived from stated Fall 2026 location: Baltimore, Maryland"
+        "evidence": "Derived from stated location: Baltimore, Maryland"
       }
     },
     {
@@ -2765,7 +2765,7 @@
         "city": "Cape Town",
         "lat": -33.9249,
         "lng": 18.4241,
-        "evidence": "Derived from stated Fall 2026 location: South Africa (AIMS affiliation)"
+        "evidence": "Inferred from current AIMS South Africa affiliation; AIMS South Africa is in Cape Town"
       }
     },
     {
@@ -3111,7 +3111,7 @@
         "city": "Bielefeld",
         "lat": 52.0302,
         "lng": 8.5325,
-        "evidence": "Derived from stated Fall 2026 location: Bielefeld, Germany"
+        "evidence": "Derived from stated location: Bielefeld, Germany"
       }
     },
     {
@@ -3280,7 +3280,7 @@
         "city": "Santa Cruz",
         "lat": 36.9741,
         "lng": -122.0308,
-        "evidence": "Derived from stated Fall 2026 location: Santa Cruz, California / from San Jose"
+        "evidence": "Derived from stated location: Santa Cruz, California"
       }
     },
     {
@@ -3481,7 +3481,7 @@
         "city": "Tübingen",
         "lat": 48.5216,
         "lng": 9.0576,
-        "evidence": "Derived from stated Fall 2026 location: Tübingen, Germany"
+        "evidence": "Derived from stated location: Tübingen, Germany"
       }
     },
     {
@@ -3894,7 +3894,7 @@
         "city": "Metro Manila",
         "lat": 14.5995,
         "lng": 120.9842,
-        "evidence": "Derived from stated Fall 2026 location: Metro Manila, Philippines"
+        "evidence": "Derived from stated location: Metro Manila, Philippines"
       }
     },
     {
@@ -4856,7 +4856,7 @@
         "city": "Mannheim",
         "lat": 49.4875,
         "lng": 8.466,
-        "evidence": "Derived from stated Fall 2026 location: Mannheim, Germany"
+        "evidence": "Derived from stated location: Mannheim, Germany"
       }
     },
     {
@@ -5100,7 +5100,7 @@
         "city": "Urbana-Champaign",
         "lat": 40.1106,
         "lng": -88.2073,
-        "evidence": "Derived from stated Fall 2026 location: Urbana-Champaign, Illinois"
+        "evidence": "Derived from stated location: Urbana-Champaign, Illinois"
       }
     },
     {
@@ -5161,7 +5161,7 @@
         "city": "San Diego",
         "lat": 32.7157,
         "lng": -117.1611,
-        "evidence": "Derived from stated Fall 2026 location: San Diego, California"
+        "evidence": "Derived from stated location: San Diego, California"
       }
     },
     {
@@ -5249,7 +5249,7 @@
         "city": "Urbana-Champaign",
         "lat": 40.1106,
         "lng": -88.2073,
-        "evidence": "Derived from stated Fall 2026 location: Urbana-Champaign, Illinois"
+        "evidence": "Derived from stated location: Urbana-Champaign, Illinois"
       }
     },
     {
@@ -6336,7 +6336,7 @@
         "city": "Athens, Georgia",
         "lat": 33.9519,
         "lng": -83.3576,
-        "evidence": "Derived from stated Fall 2026 location: Athens, Georgia"
+        "evidence": "Derived from stated location: Athens, Georgia"
       }
     },
     {
@@ -6626,7 +6626,7 @@
         "city": "Lowell",
         "lat": 42.6334,
         "lng": -71.3162,
-        "evidence": "Derived from stated Fall 2026 location: Lowell, Massachusetts"
+        "evidence": "Derived from stated location: Lowell, Massachusetts"
       }
     },
     {
@@ -6796,7 +6796,7 @@
         "city": "Hong Kong",
         "lat": 22.3193,
         "lng": 114.1694,
-        "evidence": "Derived from stated Fall 2026 location: Hong Kong"
+        "evidence": "Derived from stated location: Hong Kong"
       }
     },
     {
@@ -6866,7 +6866,7 @@
         "city": "Bern",
         "lat": 46.948,
         "lng": 7.4474,
-        "evidence": "Derived from stated Fall 2026 location: Bern, Switzerland"
+        "evidence": "Derived from stated location: Bern, Switzerland"
       }
     },
     {
@@ -7018,7 +7018,7 @@
         "city": "Milan",
         "lat": 45.4642,
         "lng": 9.19,
-        "evidence": "Derived from stated Fall 2026 location: Milan, Italy / also Trieste connections"
+        "evidence": "Derived from stated primary location: Milan, Italy"
       }
     },
     {
@@ -7244,7 +7244,7 @@
         "city": "Dhanbad",
         "lat": 23.7957,
         "lng": 86.4304,
-        "evidence": "Derived from stated Fall 2026 location: Dhanbad, India"
+        "evidence": "Derived from stated location: Dhanbad, India"
       }
     },
     {
@@ -7972,7 +7972,7 @@
         "city": "Saarbrücken",
         "lat": 49.2402,
         "lng": 6.9969,
-        "evidence": "Derived from stated Fall 2026 location: Saarland, Germany"
+        "evidence": "Inferred from current Saarland University affiliation; Saarland University is in Saarbrücken, Germany"
       }
     },
     {
@@ -8569,7 +8569,7 @@
         "city": "Columbus",
         "lat": 39.9612,
         "lng": -82.9988,
-        "evidence": "Derived from stated Fall 2026 location: Columbus, Ohio"
+        "evidence": "Derived from stated location: Columbus, Ohio"
       }
     },
     {
@@ -8698,7 +8698,7 @@
         "city": "Nashville",
         "lat": 36.1627,
         "lng": -86.7816,
-        "evidence": "Derived from stated Fall 2026 location: Nashville, Tennessee / originally Boston"
+        "evidence": "Derived from stated location: Nashville, Tennessee"
       }
     }
   ],

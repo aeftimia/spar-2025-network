@@ -187,9 +187,9 @@ const runStats = {
 
 const people = source.people.map((person) => {
   const slack = slackByName.get(person.name);
-  const mapped = person.location
+  const mapped = person.map_location || (person.location
     ? locationFrom(`based in ${person.location}`)
-    : null;
+    : null);
   const roles = cohortRoles(slack);
 
   const previousInterests = person.interests || [];
@@ -213,14 +213,14 @@ const people = source.people.map((person) => {
           ? "Fall 2026 #introductions participant; non-mentor introductions are treated as mentees for this cohort."
           : null),
     },
-    map_location: mapped
+    map_location: person.map_location || (mapped
       ? {
           city: mapped.city,
           lat: mapped.lat,
           lng: mapped.lng,
           evidence: `Derived from stated Fall 2026 location: ${person.location}`,
         }
-      : null,
+      : null),
   };
 });
 
