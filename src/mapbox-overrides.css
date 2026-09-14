@@ -46,17 +46,8 @@
 
 .mapbox-person-button:hover,
 .mapbox-person-button:focus-visible {
-  background: #f0faf7;
+  background: #f4f6f8;
   outline: none;
-}
-
-.community-map-marker {
-  cursor: pointer;
-  transition: filter 120ms ease, transform 120ms ease;
-}
-
-.community-map-marker:hover {
-  filter: drop-shadow(0 2px 4px #10263f55);
 }
 
 .mapboxgl-ctrl-attrib {
