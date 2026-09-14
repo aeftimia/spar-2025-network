@@ -72,10 +72,10 @@ const places = [
   ["Bern", 46.948, 7.4474, "Bern"],
   ["Milan", 45.4642, 9.19, "Milan"],
   ["Dhanbad", 23.7957, 86.4304, "Dhanbad"],
-  ["Saarbrücken", 49.2402, 6.9969, "Saarbr[uü]cken"],
+  ["Saarbrücken", 49.2402, 6.9969, "Saarbr[uü]cken|Saarland(?:,? Germany)?"],
   ["Columbus", 39.9612, -82.9988, "Columbus,? (?:OH|Ohio)"],
   ["Nashville", 36.1627, -86.7816, "Nashville"],
-  ["Cape Town", -33.9249, 18.4241, "Cape Town"],
+  ["Cape Town", -33.9249, 18.4241, "Cape Town|South Africa\\s*\\(AIMS affiliation\\)"],
   [
     "Cambridge, UK",
     52.205,

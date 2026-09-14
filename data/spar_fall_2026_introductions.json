@@ -94,7 +94,12 @@
         ],
         "role_evidence": "Fall 2026 #introductions participant; non-mentor introductions are treated as mentees for this cohort."
       },
-      "map_location": null
+      "map_location": {
+        "city": "Ann Arbor",
+        "lat": 42.2808,
+        "lng": -83.743,
+        "evidence": "Derived from stated Fall 2026 location: Ann Arbor, Michigan / originally Pakistan"
+      }
     },
     {
       "name": "Ryan Kim",
@@ -1583,7 +1588,12 @@
         ],
         "role_evidence": "Fall 2026 #introductions participant; non-mentor introductions are treated as mentees for this cohort."
       },
-      "map_location": null
+      "map_location": {
+        "city": "Ann Arbor",
+        "lat": 42.2808,
+        "lng": -83.743,
+        "evidence": "Derived from stated Fall 2026 location: Ann Arbor, Michigan"
+      }
     },
     {
       "name": "Feifan Liu",
@@ -1812,7 +1822,12 @@
         ],
         "role_evidence": "Fall 2026 #introductions participant; non-mentor introductions are treated as mentees for this cohort."
       },
-      "map_location": null
+      "map_location": {
+        "city": "Madison",
+        "lat": 43.0731,
+        "lng": -89.4012,
+        "evidence": "Derived from stated Fall 2026 location: Madison, Wisconsin"
+      }
     },
     {
       "name": "Emma Xing",
@@ -2083,7 +2098,12 @@
         ],
         "role_evidence": "Fall 2026 #introductions participant; non-mentor introductions are treated as mentees for this cohort."
       },
-      "map_location": null
+      "map_location": {
+        "city": "Cincinnati",
+        "lat": 39.1031,
+        "lng": -84.512,
+        "evidence": "Derived from stated Fall 2026 location: Cincinnati, Ohio"
+      }
     },
     {
       "name": "Lenz Dagohoy",
@@ -2228,7 +2248,12 @@
         ],
         "role_evidence": "Fall 2026 #introductions participant; non-mentor introductions are treated as mentees for this cohort."
       },
-      "map_location": null
+      "map_location": {
+        "city": "Belfast",
+        "lat": 54.5973,
+        "lng": -5.9301,
+        "evidence": "Derived from stated Fall 2026 location: Near Belfast, Northern Ireland"
+      }
     },
     {
       "name": "Ahmed",
@@ -2579,7 +2604,12 @@
         ],
         "role_evidence": "Fall 2026 #introductions participant; non-mentor introductions are treated as mentees for this cohort."
       },
-      "map_location": null
+      "map_location": {
+        "city": "Baltimore",
+        "lat": 39.2904,
+        "lng": -76.6122,
+        "evidence": "Derived from stated Fall 2026 location: Baltimore, Maryland"
+      }
     },
     {
       "name": "Benjamin Chrepta",
@@ -2731,7 +2761,12 @@
         ],
         "role_evidence": "Fall 2026 #introductions participant; non-mentor introductions are treated as mentees for this cohort."
       },
-      "map_location": null
+      "map_location": {
+        "city": "Cape Town",
+        "lat": -33.9249,
+        "lng": 18.4241,
+        "evidence": "Derived from stated Fall 2026 location: South Africa (AIMS affiliation)"
+      }
     },
     {
       "name": "Cat McGee",
@@ -3072,7 +3107,12 @@
         ],
         "role_evidence": "Fall 2026 #introductions participant; non-mentor introductions are treated as mentees for this cohort."
       },
-      "map_location": null
+      "map_location": {
+        "city": "Bielefeld",
+        "lat": 52.0302,
+        "lng": 8.5325,
+        "evidence": "Derived from stated Fall 2026 location: Bielefeld, Germany"
+      }
     },
     {
       "name": "Kaia Schweig",
@@ -3236,7 +3276,12 @@
         ],
         "role_evidence": "Fall 2026 #introductions participant; non-mentor introductions are treated as mentees for this cohort."
       },
-      "map_location": null
+      "map_location": {
+        "city": "Santa Cruz",
+        "lat": 36.9741,
+        "lng": -122.0308,
+        "evidence": "Derived from stated Fall 2026 location: Santa Cruz, California / from San Jose"
+      }
     },
     {
       "name": "Hannah Sun",
@@ -3432,7 +3477,12 @@
         ],
         "role_evidence": "Fall 2026 #introductions participant; non-mentor introductions are treated as mentees for this cohort."
       },
-      "map_location": null
+      "map_location": {
+        "city": "Tübingen",
+        "lat": 48.5216,
+        "lng": 9.0576,
+        "evidence": "Derived from stated Fall 2026 location: Tübingen, Germany"
+      }
     },
     {
       "name": "Varun Iyer",
@@ -3840,7 +3890,12 @@
         ],
         "role_evidence": "Fall 2026 #introductions participant; non-mentor introductions are treated as mentees for this cohort."
       },
-      "map_location": null
+      "map_location": {
+        "city": "Metro Manila",
+        "lat": 14.5995,
+        "lng": 120.9842,
+        "evidence": "Derived from stated Fall 2026 location: Metro Manila, Philippines"
+      }
     },
     {
       "name": "Chad",
@@ -4797,7 +4852,12 @@
         ],
         "role_evidence": "Fall 2026 #introductions participant; non-mentor introductions are treated as mentees for this cohort."
       },
-      "map_location": null
+      "map_location": {
+        "city": "Mannheim",
+        "lat": 49.4875,
+        "lng": 8.466,
+        "evidence": "Derived from stated Fall 2026 location: Mannheim, Germany"
+      }
     },
     {
       "name": "Agastya Sridharan",
@@ -5036,7 +5096,12 @@
         ],
         "role_evidence": "Fall 2026 #introductions participant; non-mentor introductions are treated as mentees for this cohort."
       },
-      "map_location": null
+      "map_location": {
+        "city": "Urbana-Champaign",
+        "lat": 40.1106,
+        "lng": -88.2073,
+        "evidence": "Derived from stated Fall 2026 location: Urbana-Champaign, Illinois"
+      }
     },
     {
       "name": "Arseniy Kryazhev",
@@ -5092,7 +5157,12 @@
         ],
         "role_evidence": "Fall 2026 #introductions participant; non-mentor introductions are treated as mentees for this cohort."
       },
-      "map_location": null
+      "map_location": {
+        "city": "San Diego",
+        "lat": 32.7157,
+        "lng": -117.1611,
+        "evidence": "Derived from stated Fall 2026 location: San Diego, California"
+      }
     },
     {
       "name": "Aniket Deshpande",
@@ -5175,7 +5245,12 @@
         ],
         "role_evidence": "Fall 2026 #introductions participant; non-mentor introductions are treated as mentees for this cohort."
       },
-      "map_location": null
+      "map_location": {
+        "city": "Urbana-Champaign",
+        "lat": 40.1106,
+        "lng": -88.2073,
+        "evidence": "Derived from stated Fall 2026 location: Urbana-Champaign, Illinois"
+      }
     },
     {
       "name": "Nir Mandelker",
@@ -6257,7 +6332,12 @@
         ],
         "role_evidence": "Fall 2026 #introductions participant; non-mentor introductions are treated as mentees for this cohort."
       },
-      "map_location": null
+      "map_location": {
+        "city": "Athens, Georgia",
+        "lat": 33.9519,
+        "lng": -83.3576,
+        "evidence": "Derived from stated Fall 2026 location: Athens, Georgia"
+      }
     },
     {
       "name": "Anna Gardner",
@@ -6542,7 +6622,12 @@
         ],
         "role_evidence": "Fall 2026 #introductions participant; non-mentor introductions are treated as mentees for this cohort."
       },
-      "map_location": null
+      "map_location": {
+        "city": "Lowell",
+        "lat": 42.6334,
+        "lng": -71.3162,
+        "evidence": "Derived from stated Fall 2026 location: Lowell, Massachusetts"
+      }
     },
     {
       "name": "Tommaso Cerruti",
@@ -6707,7 +6792,12 @@
         ],
         "role_evidence": "Fall 2026 #introductions participant; non-mentor introductions are treated as mentees for this cohort."
       },
-      "map_location": null
+      "map_location": {
+        "city": "Hong Kong",
+        "lat": 22.3193,
+        "lng": 114.1694,
+        "evidence": "Derived from stated Fall 2026 location: Hong Kong"
+      }
     },
     {
       "name": "Alex Flores",
@@ -6772,7 +6862,12 @@
         ],
         "role_evidence": "Fall 2026 #introductions participant; non-mentor introductions are treated as mentees for this cohort."
       },
-      "map_location": null
+      "map_location": {
+        "city": "Bern",
+        "lat": 46.948,
+        "lng": 7.4474,
+        "evidence": "Derived from stated Fall 2026 location: Bern, Switzerland"
+      }
     },
     {
       "name": "Samuele Punzo",
@@ -6919,7 +7014,12 @@
         ],
         "role_evidence": "Fall 2026 #introductions participant; non-mentor introductions are treated as mentees for this cohort."
       },
-      "map_location": null
+      "map_location": {
+        "city": "Milan",
+        "lat": 45.4642,
+        "lng": 9.19,
+        "evidence": "Derived from stated Fall 2026 location: Milan, Italy / also Trieste connections"
+      }
     },
     {
       "name": "Maximilian Wendlinger",
@@ -7140,7 +7240,12 @@
         ],
         "role_evidence": "Fall 2026 #introductions participant; non-mentor introductions are treated as mentees for this cohort."
       },
-      "map_location": null
+      "map_location": {
+        "city": "Dhanbad",
+        "lat": 23.7957,
+        "lng": 86.4304,
+        "evidence": "Derived from stated Fall 2026 location: Dhanbad, India"
+      }
     },
     {
       "name": "Vamshi Sunku Mohan",
@@ -7863,7 +7968,12 @@
         ],
         "role_evidence": "Fall 2026 #introductions participant; non-mentor introductions are treated as mentees for this cohort."
       },
-      "map_location": null
+      "map_location": {
+        "city": "Saarbrücken",
+        "lat": 49.2402,
+        "lng": 6.9969,
+        "evidence": "Derived from stated Fall 2026 location: Saarland, Germany"
+      }
     },
     {
       "name": "Jesica",
@@ -8455,7 +8565,12 @@
         ],
         "role_evidence": "Fall 2026 #introductions participant; non-mentor introductions are treated as mentees for this cohort."
       },
-      "map_location": null
+      "map_location": {
+        "city": "Columbus",
+        "lat": 39.9612,
+        "lng": -82.9988,
+        "evidence": "Derived from stated Fall 2026 location: Columbus, Ohio"
+      }
     },
     {
       "name": "Thomas Finn",
@@ -8579,7 +8694,12 @@
         ],
         "role_evidence": "Fall 2026 #introductions participant; non-mentor introductions are treated as mentees for this cohort."
       },
-      "map_location": null
+      "map_location": {
+        "city": "Nashville",
+        "lat": 36.1627,
+        "lng": -86.7816,
+        "evidence": "Derived from stated Fall 2026 location: Nashville, Tennessee / originally Boston"
+      }
     }
   ],
   "matching_guidance": {
@@ -8617,13 +8737,12 @@
   },
   "tag_taxonomy": {
     "canonical_means": {
-      "AI debate": 3,
-      "AI judges": 8,
-      "HCI & human-subject research": 6,
       "activation engineering": 16,
       "activation prediction & proxying": 6,
       "agent evaluation": 17,
       "agent foundations": 1,
+      "AI debate": 3,
+      "AI judges": 8,
       "alignment methods": 2,
       "applied ML": 4,
       "attention analysis": 2,
@@ -8638,15 +8757,16 @@
       "decision & preference modeling": 3,
       "economic modeling": 6,
       "education": 2,
-      "evaluation & benchmarking": 57,
+      "evaluation & benchmarking": 34,
       "field-building": 6,
       "forecasting & scenarios": 9,
       "formal methods": 5,
       "game theory": 7,
       "graph methods": 2,
+      "HCI & human-subject research": 6,
       "information theory": 1,
       "institutional analysis": 4,
-      "interpretability": 9,
+      "interpretability": 4,
       "language & token analysis": 10,
       "legal analysis": 5,
       "mathematical modeling": 16,
@@ -8654,7 +8774,7 @@
       "model diffing": 4,
       "model editing": 1,
       "model organisms": 8,
-      "monitoring": 13,
+      "monitoring": 12,
       "multi-agent evaluation": 12,
       "multimodal methods": 7,
       "persona & introspection methods": 12,
@@ -8683,16 +8803,16 @@
       "world models": 1
     },
     "canonical_ends": {
-      "AI control": 14,
-      "AI economics & technology change": 5,
-      "AI governance": 36,
-      "AI safety": 27,
-      "AI safety field-building": 12,
-      "AI security": 16,
-      "AI strategy": 4,
-      "AI welfare & model identity": 7,
       "agent safety": 11,
       "agent security": 10,
+      "AI control": 14,
+      "AI economics & technology change": 5,
+      "AI governance": 32,
+      "AI safety": 23,
+      "AI safety field-building": 12,
+      "AI security": 11,
+      "AI strategy": 4,
+      "AI welfare & model identity": 7,
       "alignment & model values": 48,
       "biosecurity": 7,
       "capability & robotics safety": 2,
@@ -8714,8 +8834,8 @@
       "model integrity": 3,
       "model reliability": 18,
       "model safety mechanisms": 7,
-      "model understanding": 27,
-      "monitoring & oversight": 22,
+      "model understanding": 26,
+      "monitoring & oversight": 12,
       "multi-agent safety": 10,
       "national security & strategic stability": 11,
       "privacy": 3,
@@ -8870,12 +8990,12 @@
     "canonical_ends_vocabulary_size": 40,
     "pairwise_connectivity": {
       "possible_pairs": 6903,
-      "shared_canonical_means": 3617,
-      "shared_canonical_ends": 3929,
-      "shared_specific_means": 951,
-      "shared_specific_ends": 1219
+      "shared_canonical_means": 2536,
+      "shared_canonical_ends": 2707,
+      "shared_specific_means": 1018,
+      "shared_specific_ends": 1214
     },
-    "design_note": "Canonical tags are deliberately shared bridge concepts for discovery; specific_means/specific_ends retain precise distinctions. Use rarity/IDF weighting so broad tags do not dominate recommendations.",
+    "design_note": "Canonical tags are bridge concepts for discovery, but redundant hierarchy parents are no longer repeated on individual records. specific_means/specific_ends retain precise distinctions; use rarity/IDF weighting so broad tags do not dominate recommendations.",
     "spot_check_note": "Manual spot checks were performed on representative cross-project clusters including probing/deception, SAE/reward-hacking monitoring, steganography/activation steering, multi-agent safety, agent security, and human-agency work."
   },
   "slack_source": {
@@ -8891,6 +9011,9 @@
     "reviewed_on": "2026-09-13",
     "people": 118,
     "interest_values_removed_as_research_or_professional": 467,
+    "redundant_canonical_parent_tags_removed": 149,
+    "specific_tags_moved_to_ends": 0,
+    "specific_tags_moved_to_means": 0,
     "personal_interest_vocabulary_size": 39,
     "personal_interest_vocabulary": [
       "FPS esports",
@@ -8933,7 +9056,6 @@
       "trivia",
       "writing"
     ],
-    "redundant_canonical_parent_tags_removed": 149,
     "specific_tag_side_corrections": {
       "moved_to_ends": [
         "congressional oversight",
