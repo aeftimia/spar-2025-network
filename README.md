@@ -1,53 +1,67 @@
 # SPAR Common Ground
 
-A small, login-free community map for `spar2025.slack.com`. React + Mantine, Leaflet, Vite, and SST. The entire directory is `public/data/people.json`; filtering and shared-interest suggestions run in the browser. No database, API server, or background jobs.
+A small, login-free community map for `spar2025.slack.com`. React + Mantine, Leaflet, Vite, and SST. Filtering and shared-interest suggestions run entirely in the browser; there is no database or API server.
+
+The source of truth for the current directory is `data/spar_fall_2026_introductions.json`, which contains the enriched Fall 2026 research/project metadata. Fresh Slack identity metadata for the same cohort lives in `data/fall_2026_slack_metadata.json`. Before development and production builds, `scripts/build-fall26-directory.mjs` merges those sources and writes both the full enriched public JSON and the `public/data/people.json` compatibility view consumed by the existing UI.
 
 ## Run
 
 ```sh
 npm ci
-npm run dev          # Vite only, no AWS needed
+npm run dev          # generates Fall 2026 public data, then starts Vite
 npm run sst:dev      # SST development stage e2e with hot reload
 npm test
-npm run build
-npm run deploy      # production: https://spar2025.trekkit.io
+npm run build        # regenerates Fall 2026 public data before building
+npm run deploy       # production: https://spar2025.trekkit.io
 ```
 
 SST needs your usual AWS credentials. The production domain uses Route 53 DNS for `trekkit.io`, an ACM certificate, S3, and CloudFront. Production resources are retained and protected; the e2e stage does not attach the production domain. SST manages the frontend command in dev mode. There are no application credentials in the frontend.
 
-## Refresh the directory
+## Fall 2026 directory
 
-The initial snapshot was read through the Slack connector from all 384 available top-level messages in `#introductions` on September 13, 2026. It keeps the most recent substantive introduction per Slack user (369 people). Thread replies are not imported. The snapshot spans multiple years; filter by introduction year when recency matters. It is not a live roster of current SPAR participants.
+The current roster contains 118 introductions from the Fall 2026 introduction run in `#introductions`, spanning September 10–13, 2026. Older SPAR cohorts are deliberately excluded.
 
-To import a connector transcript stored locally:
+The enriched source includes locations, descriptions, SPAR projects and project links, social/profile links, broader interests, research background, and normalized research tags. The taxonomy distinguishes methodological **means** (for example linear probing, activation engineering, sparse autoencoders, game theory) from safety/problem **ends** (for example deception, monitoring, reward hacking, biosecurity, or human agency). More specific tags are retained alongside canonical bridge tags so related researchers can still find one another despite different terminology.
+
+Fresh Slack metadata was read directly from the Fall 2026 messages and matched to all 118 enriched records. It includes Slack user IDs, introduction timestamps/dates, message permalinks, profile URLs, and explicit role evidence. Mentor/mentee roles are only assigned when directly supported by the introduction; otherwise they remain unknown.
+
+Run the merger directly with:
+
+```sh
+node scripts/build-fall26-directory.mjs
+```
+
+It produces:
+
+- `public/data/spar_fall_2026_introductions.json` — the full enriched dataset plus fresh Slack metadata and city-level map locations where recognized.
+- `public/data/people.json` — a compatibility projection for the current React UI, using the Fall 2026 roster and canonical means/ends/interests as filter tags.
+
+The build fails if the Slack metadata and enriched roster do not match one-to-one, so a partial cohort refresh cannot silently ship.
+
+## Slack refresh utilities
+
+The older generic Slack import utilities are still available for ad-hoc extraction work:
 
 ```sh
 npm run import:slack -- data/raw/introductions.txt
 ```
 
-Alternatively, use a Slack JSON array with `{ user, name, text, ts, channel }` fields. `name` and `channel` are optional; normal Slack exports need names added from their `users.json` file. Missing names remain user IDs rather than invented identities.
-
-For a repeatable API refresh:
+or, with a Slack API token:
 
 ```sh
-# Set SLACK_TOKEN securely in your shell first.
 SLACK_CHANNEL_IDS=C04NZ0MMSDV npm run sync:slack
-npm run build
-npm run deploy
 ```
 
-The token needs `channels:history` and `users:read`, plus membership in the source channel. Private channels also require `groups:history`. The script follows pagination, handles rate limits, resolves display names, and only overwrites the directory after a successful fetch. Raw imports and `.env` files are gitignored and are not copied into the build.
+These generic utilities are not currently the source of truth for the Fall 2026 enriched roster. If refreshing Fall 2026, update the enriched source and `data/fall_2026_slack_metadata.json` together and rerun the build merger.
 
-## Extraction and corrections
+## Data notes
 
-- Tags use a small, editable vocabulary in `scripts/extract.mjs`, grouped into research, projects, tooling, objectives, and interests. They describe text matches, not verified expertise.
-- Mentor/mentee labels require explicit introduction evidence. Many introductions don't state a role and remain in “Role not stated.” Do not assume every student is a mentee.
-- Locations use a local city dictionary and current-location phrases, avoiding birthplace, former schools, and planned travel. Unmatched/ambiguous locations stay off the map and remain in the directory.
-- Four manually reviewed university affiliations are mapped as **inferred** city locations. Their evidence is visible on profile cards. All pins are city centroids, never addresses.
-- `data/overrides.json` supports reviewed corrections by Slack user ID. Set `location` to `null` to unmap someone, supply `roles`, or replace tags. Review overrides on refresh: they intentionally persist.
-- Full introduction text (with emails removed), source dates, and Slack permalinks remain available for context. The static JSON is public wherever deployed.
+- Locations are mapped only to city centroids, never addresses. Unrecognized or ambiguous locations remain available as text but stay off the map.
+- The static directory JSON is public wherever the site is deployed, so do not add private contact information.
+- Research tags are intended for discovery and conversation matching. Canonical tags provide broad bridges; fine-grained tags preserve the actual method/problem distinctions.
+- Project and background-research metadata may come from introductions, SPAR project pages, and confidently matched public professional/research profiles; unresolved information is left empty rather than guessed.
 
-Checkbox filters combine selected roles with any/all tag matching. Search, roles, tag matching, introduction year, and location filters persist in shareable URLs. Map pins group everyone at the same coordinate, with all people accessible in the popup. The directory also includes unmapped people.
+Checkbox filters combine selected roles with any/all tag matching. Search and filters persist in shareable URLs. Map pins group everyone at the same coordinate, with all people accessible in the popup, and unmapped people remain available in the directory.
 
 ## Local examples followed
 
@@ -56,4 +70,3 @@ Checkbox filters combine selected roles with any/all tag matching. Search, roles
 - `~/kitchen-share` (`vivirents`): map lifecycle cleanup, map/list layout, shared selection, URL-backed search.
 
 References: [SST StaticSite](https://sst.dev/docs/component/aws/static-site/), [SST CLI](https://sst.dev/docs/reference/cli/), [SST custom domains](https://sst.dev/docs/custom-domains/), [Mantine](https://mantine.dev/), [OpenStreetMap tile usage](https://operations.osmfoundation.org/policies/tiles/).
-# spar-2025-network
