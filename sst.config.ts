@@ -13,7 +13,7 @@ export default $config({
     const site = new sst.aws.StaticSite("Web", {
       domain:
         !$dev && $app.stage === "production"
-          ? "spar2025.trekkit.io"
+          ? "spar2026.trekkit.io"
           : undefined,
       build: { command: "npm run build", output: "dist" },
       dev: { command: "npm run dev" },
