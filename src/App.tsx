@@ -9,6 +9,7 @@ import {
   Drawer,
   Group,
   Loader,
+  MultiSelect,
   ScrollArea,
   SegmentedControl,
   Select,
@@ -38,6 +39,12 @@ import type { Person } from "./types";
 const PeopleMap = lazy(() => import("./PeopleMap"));
 const people = dataset.people;
 const roleLabels = { mentor: "Mentors", mentee: "Mentees" } as const;
+const TAG_CATEGORIES = [
+  "Methods & approaches",
+  "Research goals",
+  "Outside research",
+] as const;
+const tagKey = (category: string, label: string) => `${category}::${label}`;
 const roleColor = (person: Person) =>
   person.roles.includes("mentor") ? "violet" : "teal";
 const initials = (name: string) =>
@@ -69,7 +76,6 @@ export default function App() {
   const [roles, setRoles] = useState(initial.roles);
   const [tags, setTags] = useState(initial.tags);
   const [mode, setMode] = useState(initial.mode);
-  const [tagSearch, setTagSearch] = useState("");
   const [selected, setSelected] = useState<Person | null>(null);
   const [mobileFilters, setMobileFilters] = useState(false);
   const [reset, setReset] = useState(0);
@@ -109,11 +115,14 @@ export default function App() {
         .filter(Boolean)
         .join(" ")
         .toLowerCase();
+      const personTagKeys = new Set(
+        person.tags.map((tag) => tagKey(tag.category, tag.label)),
+      );
       const tagMatch =
         !tags.length ||
         (mode === "all"
-          ? tags.every((tag) => person.tags.some((item) => item.label === tag))
-          : tags.some((tag) => person.tags.some((item) => item.label === tag)));
+          ? tags.every((tag) => personTagKeys.has(tag))
+          : tags.some((tag) => personTagKeys.has(tag)));
       return (
         roles.some((role) => person.roles.includes(role)) &&
         (locationFilter === "all" ||
@@ -124,49 +133,38 @@ export default function App() {
     });
   }, [roles, locationFilter, q, tags, mode]);
 
-  const tagGroups = useMemo(() => {
-    const counts = new Map<
-      string,
-      { category: string; label: string; count: number }
-    >();
+  const tagData = useMemo(() => {
+    const counts = new Map<string, { category: string; label: string; count: number }>();
     people.forEach((person) =>
       person.tags.forEach((tag) => {
-        const key = `${tag.category}:${tag.label}`;
+        const key = tagKey(tag.category, tag.label);
         counts.set(key, {
           ...tag,
           count: (counts.get(key)?.count || 0) + 1,
         });
       }),
     );
-    return ["Methods & approaches", "Research goals", "Outside research"]
-      .map((category) => ({
-        category,
-        items: [...counts.values()]
-          .filter(
-            (tag) =>
-              tag.category === category &&
-              tag.label.toLowerCase().includes(tagSearch.toLowerCase()),
-          )
-          .sort((a, b) => b.count - a.count || a.label.localeCompare(b.label)),
-      }))
-      .filter((group) => group.items.length);
-  }, [tagSearch]);
+
+    return TAG_CATEGORIES.map((category) => ({
+      group: category,
+      items: [...counts.values()]
+        .filter((tag) => tag.category === category)
+        .sort((a, b) => b.count - a.count || a.label.localeCompare(b.label))
+        .map((tag) => ({
+          value: tagKey(tag.category, tag.label),
+          label: tag.label,
+        })),
+    })).filter((group) => group.items.length);
+  }, []);
 
   const mapped = filtered.filter((person) => person.location);
   const cities = new Set(mapped.map((person) => person.location!.city));
-  const toggleTag = (tag: string) =>
-    setTags((current) =>
-      current.includes(tag)
-        ? current.filter((candidate) => candidate !== tag)
-        : [...current, tag],
-    );
   const clear = () => {
     setQ("");
     setRoles(["mentor", "mentee"]);
     setTags([]);
     setMode("any");
     setLocationFilter("all");
-    setTagSearch("");
     setSelected(null);
   };
 
@@ -209,14 +207,20 @@ export default function App() {
         <Text className="eyebrow">COMMON GROUND</Text>
         {!!tags.length && <Badge color="teal" size="sm">{tags.length}</Badge>}
       </Group>
-      <TextInput
-        aria-label="Search tags"
+      <MultiSelect
+        searchable
+        clearable
+        hidePickedOptions
+        data={tagData}
+        value={tags}
+        onChange={setTags}
         placeholder="Search methods, goals, hobbies…"
         leftSection={<IconSearch size={16} />}
-        value={tagSearch}
-        onChange={(event) => setTagSearch(event.currentTarget.value)}
+        maxDropdownHeight={330}
+        nothingFoundMessage="No matching tags"
+        comboboxProps={{ transitionProps: { duration: 150, transition: "fade" } }}
       />
-      <Group justify="space-between" my="md">
+      <Group justify="space-between" mt="md">
         <Text size="xs" c="dimmed">Match selected tags</Text>
         <SegmentedControl
           size="xs"
@@ -225,28 +229,6 @@ export default function App() {
           data={[{ label: "Any", value: "any" }, { label: "All", value: "all" }]}
         />
       </Group>
-      <div className="tag-options">
-        {tagGroups.map((group) => (
-          <div key={group.category} className="tag-group">
-            <Text size="xs" fw={700} c="dimmed" mb="sm">
-              {group.category.toUpperCase()}
-            </Text>
-            <Stack gap="sm">
-              {group.items.map((tag) => (
-                <Group key={`${group.category}:${tag.label}`} wrap="nowrap" justify="space-between" align="flex-start">
-                  <Checkbox
-                    label={tag.label}
-                    checked={tags.includes(tag.label)}
-                    onChange={() => toggleTag(tag.label)}
-                    size="xs"
-                  />
-                  <Text size="xs" c="dimmed">{tag.count}</Text>
-                </Group>
-              ))}
-            </Stack>
-          </div>
-        ))}
-      </div>
     </>
   );
 
@@ -344,13 +326,6 @@ export default function App() {
             />
           </div>
 
-          {!!tags.length && (
-            <Group gap={6} className="selected-tags">
-              {tags.map((tag) => <Button key={tag} variant="light" size="compact-xs" rightSection={<IconX size={12} />} onClick={() => toggleTag(tag)}>{tag}</Button>)}
-              <Button variant="subtle" size="compact-xs" color="gray" onClick={() => setTags([])}>Clear tags</Button>
-            </Group>
-          )}
-
           <Group className="results-heading" justify="space-between">
             <Text size="sm"><b>{filtered.length} people</b> <span className="muted">with something in common</span></Text>
             <Text size="xs" c="dimmed">{mapped.length} on the map · {cities.size} cities</Text>
@@ -363,8 +338,6 @@ export default function App() {
                   <PeopleMap people={filtered} focus={selected} onSelect={setSelected} reset={reset} />
                 </Suspense>
                 <Button className="fit-map" size="xs" variant="white" color="dark" leftSection={<IconFocusCentered size={16} />} onClick={() => { setSelected(null); setReset((value) => value + 1); }}>Fit everyone</Button>
-                <div className="map-legend"><span><i className="dot mentor" />Mentor</span><span><i className="dot mentee" />Mentee</span></div>
-                {!mapped.length && <div className="map-empty"><Text fw={700}>No mapped locations in this selection</Text><Text size="sm" c="dimmed">Try different filters or explore the directory.</Text></div>}
               </section>
               <section className="people-panel">
                 <Group justify="space-between" p="md"><Text fw={700} size="sm">Meet the community</Text><Badge variant="light" color="gray">{filtered.length}</Badge></Group>
