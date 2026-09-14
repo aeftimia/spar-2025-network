@@ -40,15 +40,66 @@ const dedupeTags = (tags) => [
 const cohortRoles = (slack) =>
   slack.roles.includes("mentor") ? ["mentor"] : ["mentee"];
 
+// `interests` in the enriched source was intentionally broad during research
+// discovery and contains many research topics. Only clearly non-research/social
+// interests are promoted into the UI's "Outside research" category.
+const PERSONAL_INTERESTS = new Set([
+  "art",
+  "baking",
+  "board games",
+  "bouldering",
+  "chess",
+  "coffee",
+  "cooking",
+  "electronic music",
+  "film",
+  "football",
+  "FPS esports",
+  "gaming",
+  "graphic design",
+  "gym",
+  "hiking",
+  "home labs",
+  "house concerts",
+  "jazz guitar",
+  "jewelry",
+  "meditation",
+  "mountain biking",
+  "movies",
+  "music production",
+  "mysteries",
+  "outdoors",
+  "photography",
+  "pool",
+  "reading",
+  "rock climbing",
+  "running",
+  "science fiction",
+  "skateboarding",
+  "Spanish",
+  "sports",
+  "swimming",
+  "swing dancing",
+  "triathlon",
+  "trivia",
+  "vegan cooking",
+  "writing",
+]);
+
+const personalInterests = (person) =>
+  (person.interests || []).filter((interest) => PERSONAL_INTERESTS.has(interest));
+
 const people = source.people.map((person) => {
   const slack = slackByName.get(person.name);
   const mapped = person.location
     ? locationFrom(`based in ${person.location}`)
     : null;
   const roles = cohortRoles(slack);
+  const outsideResearch = personalInterests(person);
 
   return {
     ...person,
+    personal_interests: outsideResearch,
     slack: {
       user_id: slack.user_id,
       message_ts: slack.message_ts,
@@ -75,6 +126,11 @@ const people = source.people.map((person) => {
 
 const output = {
   ...source,
+  tag_semantics: {
+    ...source.tag_semantics,
+    personal_interests:
+      "Clearly non-research hobbies and social interests derived conservatively from the broader source interests field. Research methods and objectives remain exclusively in research_tags.",
+  },
   scope: {
     ...source.scope,
     slack_metadata_note:
@@ -98,15 +154,15 @@ const compatibilityPeople = people.map((person) => ({
   intro: person.description,
   tags: dedupeTags([
     ...(person.research_tags?.means || []).map((label) => ({
-      category: "Research",
+      category: "Methods & approaches",
       label,
     })),
     ...(person.research_tags?.ends || []).map((label) => ({
-      category: "Objectives",
+      category: "Research goals",
       label,
     })),
-    ...(person.interests || []).map((label) => ({
-      category: "Interests",
+    ...(person.personal_interests || []).map((label) => ({
+      category: "Outside research",
       label,
     })),
   ]),
@@ -119,7 +175,8 @@ const compatibilityPeople = people.map((person) => ({
   projectUrls: person.project_urls || [],
   socialMedia: person.social_media || {},
   websites: person.websites || [],
-  interests: person.interests || [],
+  interests: person.personal_interests || [],
+  personalInterests: person.personal_interests || [],
   backgroundResearchInterests: person.background_research_interests || [],
   specificMeans: person.research_tags?.specific_means || [],
   specificEnds: person.research_tags?.specific_ends || [],
