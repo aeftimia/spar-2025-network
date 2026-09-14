@@ -7,12 +7,13 @@ const here = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(here, "..");
 const sourcePath = path.join(root, "data", "spar_fall_2026_introductions.json");
 const slackPath = path.join(root, "data", "fall_2026_slack_metadata.json");
-const outputPath = path.join(
+const fullOutputPath = path.join(
   root,
   "public",
   "data",
   "spar_fall_2026_introductions.json",
 );
+const compatibilityOutputPath = path.join(root, "public", "data", "people.json");
 
 const source = JSON.parse(fs.readFileSync(sourcePath, "utf8"));
 const slackMetadata = JSON.parse(fs.readFileSync(slackPath, "utf8"));
@@ -31,6 +32,10 @@ if (missing.length || extras.length) {
       `Extra: ${extras.join(", ") || "none"}.`,
   );
 }
+
+const dedupeTags = (tags) => [
+  ...new Map(tags.map((tag) => [`${tag.category}:${tag.label}`, tag])).values(),
+];
 
 const people = source.people.map((person) => {
   const slack = slackByName.get(person.name);
@@ -62,7 +67,6 @@ const people = source.people.map((person) => {
 
 const output = {
   ...source,
-  generated_on: source.generated_on,
   scope: {
     ...source.scope,
     slack_metadata_note:
@@ -77,6 +81,55 @@ const output = {
   people,
 };
 
-fs.mkdirSync(path.dirname(outputPath), { recursive: true });
-fs.writeFileSync(outputPath, `${JSON.stringify(output, null, 2)}\n`);
-console.log(`Wrote ${people.length} Fall 2026 records to ${outputPath}`);
+const compatibilityPeople = people.map((person) => ({
+  id: person.slack.user_id,
+  name: person.name,
+  roles: person.slack.roles,
+  location: person.map_location,
+  locationText: person.location,
+  intro: person.description,
+  tags: dedupeTags([
+    ...(person.research_tags?.means || []).map((label) => ({
+      category: "Research",
+      label,
+    })),
+    ...(person.research_tags?.ends || []).map((label) => ({
+      category: "Objectives",
+      label,
+    })),
+    ...(person.interests || []).map((label) => ({
+      category: "Interests",
+      label,
+    })),
+  ]),
+  date: person.slack.intro_date,
+  sourceUrl: person.slack.source_url,
+  slackUrl: person.slack.profile_url,
+  roleEvidence: person.slack.role_evidence || undefined,
+  project: person.project || null,
+  projectUrl: person.project_url || null,
+  projectUrls: person.project_urls || [],
+  socialMedia: person.social_media || {},
+  websites: person.websites || [],
+  interests: person.interests || [],
+  backgroundResearchInterests: person.background_research_interests || [],
+  specificMeans: person.research_tags?.specific_means || [],
+  specificEnds: person.research_tags?.specific_ends || [],
+}));
+
+const compatibilityOutput = {
+  updatedAt: new Date().toISOString(),
+  source: "SPAR Fall 2026 Slack introductions + enriched research metadata",
+  messageCount: compatibilityPeople.length,
+  people: compatibilityPeople,
+};
+
+fs.mkdirSync(path.dirname(fullOutputPath), { recursive: true });
+fs.writeFileSync(fullOutputPath, `${JSON.stringify(output, null, 2)}\n`);
+fs.writeFileSync(
+  compatibilityOutputPath,
+  `${JSON.stringify(compatibilityOutput, null, 2)}\n`,
+);
+console.log(
+  `Wrote ${people.length} Fall 2026 records to ${fullOutputPath} and ${compatibilityOutputPath}`,
+);
