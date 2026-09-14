@@ -124,6 +124,10 @@ const SPECIFIC_TO_MEANS = new Set([
 ]);
 
 const dedupe = (xs = []) => [...new Set(xs)];
+const intersects = (a, b) => {
+  const rhs = new Set(b);
+  return a.some((value) => rhs.has(value));
+};
 
 function pruneParents(tags, hierarchy) {
   return tags.filter((tag) => {
@@ -132,21 +136,28 @@ function pruneParents(tags, hierarchy) {
   });
 }
 
-function auditResearchTags(researchTags = {}) {
-  let means = pruneParents(dedupe(researchTags.means), MEANS_PARENTS);
-  let ends = pruneParents(dedupe(researchTags.ends), ENDS_PARENTS);
+function auditResearchTags(researchTags = {}, stats) {
+  const originalMeans = dedupe(researchTags.means);
+  const originalEnds = dedupe(researchTags.ends);
+  let means = pruneParents(originalMeans, MEANS_PARENTS);
+  let ends = pruneParents(originalEnds, ENDS_PARENTS);
   let specificMeans = dedupe(researchTags.specific_means);
   let specificEnds = dedupe(researchTags.specific_ends);
+
+  stats.redundantParents +=
+    originalMeans.length + originalEnds.length - means.length - ends.length;
 
   for (const tag of [...specificMeans]) {
     if (!SPECIFIC_TO_ENDS.has(tag)) continue;
     specificMeans = specificMeans.filter((x) => x !== tag);
     if (!specificEnds.includes(tag)) specificEnds.push(tag);
+    stats.movedToEnds += 1;
   }
   for (const tag of [...specificEnds]) {
     if (!SPECIFIC_TO_MEANS.has(tag)) continue;
     specificEnds = specificEnds.filter((x) => x !== tag);
     if (!specificMeans.includes(tag)) specificMeans.push(tag);
+    stats.movedToMeans += 1;
   }
 
   return {
@@ -167,9 +178,12 @@ function auditPersonalInterests(interests = []) {
 const cohortRoles = (slack) =>
   slack.roles.includes("mentor") ? ["mentor"] : ["mentee"];
 
-let removedInterestValues = 0;
-let removedRedundantCanonicalTags = 0;
-let movedSpecificTags = 0;
+const runStats = {
+  removedInterestValues: 0,
+  redundantParents: 0,
+  movedToEnds: 0,
+  movedToMeans: 0,
+};
 
 const people = source.people.map((person) => {
   const slack = slackByName.get(person.name);
@@ -180,26 +194,12 @@ const people = source.people.map((person) => {
 
   const previousInterests = person.interests || [];
   const interests = auditPersonalInterests(previousInterests);
-  removedInterestValues += previousInterests.length - interests.length;
-
-  const beforeMeans = dedupe(person.research_tags?.means).length;
-  const beforeEnds = dedupe(person.research_tags?.ends).length;
-  const beforeSpecificMeans = dedupe(person.research_tags?.specific_means).length;
-  const beforeSpecificEnds = dedupe(person.research_tags?.specific_ends).length;
-  const researchTags = auditResearchTags(person.research_tags);
-  removedRedundantCanonicalTags +=
-    beforeMeans + beforeEnds - researchTags.means.length - researchTags.ends.length;
-  movedSpecificTags += Math.max(
-    0,
-    beforeSpecificMeans + beforeSpecificEnds -
-      researchTags.specific_means.length -
-      researchTags.specific_ends.length,
-  );
+  runStats.removedInterestValues += previousInterests.length - interests.length;
 
   return {
     ...person,
     interests,
-    research_tags: researchTags,
+    research_tags: auditResearchTags(person.research_tags, runStats),
     slack: {
       user_id: slack.user_id,
       message_ts: slack.message_ts,
@@ -224,9 +224,62 @@ const people = source.people.map((person) => {
   };
 });
 
+function tagCounts(key) {
+  const counts = new Map();
+  for (const person of people) {
+    for (const tag of person.research_tags[key] || []) {
+      counts.set(tag, (counts.get(tag) || 0) + 1);
+    }
+  }
+  return Object.fromEntries([...counts.entries()].sort(([a], [b]) => a.localeCompare(b)));
+}
+
+function pairwiseConnectivity() {
+  let sharedCanonicalMeans = 0;
+  let sharedCanonicalEnds = 0;
+  let sharedSpecificMeans = 0;
+  let sharedSpecificEnds = 0;
+  for (let i = 0; i < people.length; i += 1) {
+    for (let j = i + 1; j < people.length; j += 1) {
+      const a = people[i].research_tags;
+      const b = people[j].research_tags;
+      if (intersects(a.means, b.means)) sharedCanonicalMeans += 1;
+      if (intersects(a.ends, b.ends)) sharedCanonicalEnds += 1;
+      if (intersects(a.specific_means, b.specific_means)) sharedSpecificMeans += 1;
+      if (intersects(a.specific_ends, b.specific_ends)) sharedSpecificEnds += 1;
+    }
+  }
+  return {
+    possible_pairs: (people.length * (people.length - 1)) / 2,
+    shared_canonical_means: sharedCanonicalMeans,
+    shared_canonical_ends: sharedCanonicalEnds,
+    shared_specific_means: sharedSpecificMeans,
+    shared_specific_ends: sharedSpecificEnds,
+  };
+}
+
 const personalInterestVocabulary = [
   ...new Set(people.flatMap((person) => person.interests || [])),
 ].sort();
+const previousAudit = source.tag_audit || {};
+const accumulatedAudit = {
+  interest_values_removed_as_research_or_professional: Math.max(
+    previousAudit.interest_values_removed_as_research_or_professional || 0,
+    runStats.removedInterestValues,
+  ),
+  redundant_canonical_parent_tags_removed: Math.max(
+    previousAudit.redundant_canonical_parent_tags_removed || 0,
+    runStats.redundantParents,
+  ),
+  specific_tags_moved_to_ends: Math.max(
+    previousAudit.specific_tags_moved_to_ends || 0,
+    runStats.movedToEnds,
+  ),
+  specific_tags_moved_to_means: Math.max(
+    previousAudit.specific_tags_moved_to_means || 0,
+    runStats.movedToMeans,
+  ),
+};
 
 const output = {
   ...source,
@@ -257,13 +310,18 @@ const output = {
     cohort_window: slackMetadata.cohort_window,
     matched_people: people.length,
   },
+  people,
+  tag_taxonomy: {
+    ...source.tag_taxonomy,
+    canonical_means: tagCounts("means"),
+    canonical_ends: tagCounts("ends"),
+  },
   tag_audit: {
     reviewed_on: "2026-09-13",
     people: people.length,
-    interest_values_removed_as_research_or_professional: removedInterestValues,
+    ...accumulatedAudit,
     personal_interest_vocabulary_size: personalInterestVocabulary.length,
     personal_interest_vocabulary: personalInterestVocabulary,
-    redundant_canonical_parent_tags_removed: removedRedundantCanonicalTags,
     specific_tag_side_corrections: {
       moved_to_ends: [...SPECIFIC_TO_ENDS].sort(),
       moved_to_means: [...SPECIFIC_TO_MEANS].sort(),
@@ -271,7 +329,15 @@ const output = {
     design_note:
       "Hierarchy relationships remain in tag_taxonomy for matching, but individual records avoid repeating broad parent tags when a more specific canonical child is already present.",
   },
-  people,
+  final_review_audit: {
+    ...source.final_review_audit,
+    records: people.length,
+    canonical_means_vocabulary_size: Object.keys(tagCounts("means")).length,
+    canonical_ends_vocabulary_size: Object.keys(tagCounts("ends")).length,
+    pairwise_connectivity: pairwiseConnectivity(),
+    design_note:
+      "Canonical tags are bridge concepts for discovery, but redundant hierarchy parents are no longer repeated on individual records. specific_means/specific_ends retain precise distinctions; use rarity/IDF weighting so broad tags do not dominate recommendations.",
+  },
 };
 
 fs.writeFileSync(sourcePath, `${JSON.stringify(output, null, 2)}\n`);
