@@ -1,4 +1,5 @@
 export type Tag = { category: string; label: string };
+
 export type Person = {
   id: string;
   name: string;
@@ -10,13 +11,24 @@ export type Person = {
     evidence: string;
     inferred?: boolean;
   } | null;
+  locationText?: string | null;
   intro: string;
   tags: Tag[];
   date: string;
   sourceUrl: string;
   slackUrl: string;
   roleEvidence?: string;
+  project?: string | null;
+  projectUrl?: string | null;
+  projectUrls?: string[];
+  socialMedia?: Record<string, string>;
+  websites?: string[];
+  interests?: string[];
+  backgroundResearchInterests?: string[];
+  specificMeans?: string[];
+  specificEnds?: string[];
 };
+
 export type Dataset = {
   updatedAt: string;
   source: string;
