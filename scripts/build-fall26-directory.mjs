@@ -37,11 +37,15 @@ const dedupeTags = (tags) => [
   ...new Map(tags.map((tag) => [`${tag.category}:${tag.label}`, tag])).values(),
 ];
 
+const cohortRoles = (slack) =>
+  slack.roles.includes("mentor") ? ["mentor"] : ["mentee"];
+
 const people = source.people.map((person) => {
   const slack = slackByName.get(person.name);
   const mapped = person.location
     ? locationFrom(`based in ${person.location}`)
     : null;
+  const roles = cohortRoles(slack);
 
   return {
     ...person,
@@ -51,8 +55,12 @@ const people = source.people.map((person) => {
       intro_date: slack.date,
       source_url: slack.source_url,
       profile_url: slack.profile_url,
-      roles: slack.roles,
-      role_evidence: slack.role_evidence,
+      roles,
+      role_evidence:
+        slack.role_evidence ||
+        (roles.includes("mentee")
+          ? "Fall 2026 #introductions participant; non-mentor introductions are treated as mentees for this cohort."
+          : null),
     },
     map_location: mapped
       ? {
@@ -70,7 +78,7 @@ const output = {
   scope: {
     ...source.scope,
     slack_metadata_note:
-      "Slack user IDs, message timestamps, profile links, introduction permalinks, and explicit role evidence were refreshed directly from #introductions for the Fall 2026 run (2026-09-10 through 2026-09-13). Older cohorts are excluded.",
+      "Slack user IDs, message timestamps, profile links, introduction permalinks, and role metadata were refreshed directly from #introductions for the Fall 2026 run (2026-09-10 through 2026-09-13). Explicit mentors remain mentors; all other Fall 2026 introducers are treated as mentees. Older cohorts are excluded.",
   },
   slack_source: {
     workspace: slackMetadata.workspace,
