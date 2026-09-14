@@ -24,6 +24,7 @@ export type Person = {
   socialMedia?: Record<string, string>;
   websites?: string[];
   interests?: string[];
+  personalInterests?: string[];
   backgroundResearchInterests?: string[];
   specificMeans?: string[];
   specificEnds?: string[];
