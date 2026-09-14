@@ -1,7 +1,6 @@
 import { lazy, Suspense, useEffect, useMemo, useState } from "react";
 import {
   ActionIcon,
-  Alert,
   Avatar,
   Badge,
   Button,
@@ -20,136 +19,147 @@ import {
 } from "@mantine/core";
 import {
   IconArrowUpRight,
+  IconBrandLinkedin,
   IconBrandSlack,
   IconCheck,
   IconCompass,
+  IconExternalLink,
   IconFilter,
+  IconFocusCentered,
   IconMapPin,
   IconSearch,
   IconUsers,
-  IconX,
   IconWorld,
-  IconFocusCentered,
+  IconX,
 } from "@tabler/icons-react";
-import type { Dataset, Person } from "./types";
+import { dataset } from "./directory";
+import type { Person } from "./types";
+
 const PeopleMap = lazy(() => import("./PeopleMap"));
-const roleLabels: Record<string, string> = {
-  mentor: "Mentors",
-  mentee: "Mentees",
-};
-const roleColor = (p: Person) =>
-  p.roles.includes("mentor") ? "violet" : "teal";
+const people = dataset.people;
+const roleLabels = { mentor: "Mentors", mentee: "Mentees" } as const;
+const roleColor = (person: Person) =>
+  person.roles.includes("mentor") ? "violet" : "teal";
 const initials = (name: string) =>
   name
     .split(" ")
     .slice(0, 2)
-    .map((s) => s[0])
+    .map((part) => part[0])
     .join("");
-const getInitial = () => {
-  const p = new URLSearchParams(location.search);
+
+function initialState() {
+  const params = new URLSearchParams(location.search);
   return {
-    q: p.get("q") || "",
-    roles: p.has("roles")
-      ? p
+    q: params.get("q") || "",
+    roles: params.has("roles")
+      ? params
           .get("roles")!
           .split(",")
           .filter((role) => role === "mentor" || role === "mentee")
       : ["mentor", "mentee"],
-    tags: p.getAll("tag"),
-    mode: p.get("match") === "all" ? "all" : "any",
-    location: p.get("location") || "all",
+    tags: params.getAll("tag"),
+    mode: params.get("match") === "all" ? "all" : "any",
+    location: params.get("location") || "all",
   };
-};
+}
+
 export default function App() {
-  const [initial] = useState(getInitial);
-  const [dataset, setDataset] = useState<Dataset | null>(null);
-  const [error, setError] = useState("");
-  const [q, setQ] = useState(initial.q),
-    [roles, setRoles] = useState(initial.roles),
-    [tags, setTags] = useState(initial.tags),
-    [mode, setMode] = useState(initial.mode),
-    [tagSearch, setTagSearch] = useState("");
-  const [selected, setSelected] = useState<Person | null>(null),
-    [mobileFilters, setMobileFilters] = useState(false),
-    [reset, setReset] = useState(0),
-    [view, setView] = useState("map"),
-    [copied, setCopied] = useState(false);
+  const [initial] = useState(initialState);
+  const [q, setQ] = useState(initial.q);
+  const [roles, setRoles] = useState(initial.roles);
+  const [tags, setTags] = useState(initial.tags);
+  const [mode, setMode] = useState(initial.mode);
+  const [tagSearch, setTagSearch] = useState("");
+  const [selected, setSelected] = useState<Person | null>(null);
+  const [mobileFilters, setMobileFilters] = useState(false);
+  const [reset, setReset] = useState(0);
+  const [view, setView] = useState("map");
+  const [copied, setCopied] = useState(false);
   const [locationFilter, setLocationFilter] = useState(initial.location);
+
   useEffect(() => {
-    const c = new AbortController();
-    fetch("/data/people.json", { signal: c.signal })
-      .then((r) => {
-        if (!r.ok) throw Error("Could not load the community directory.");
-        return r.json();
-      })
-      .then(setDataset)
-      .catch((e) => {
-        if (e.name !== "AbortError") setError(e.message);
-      });
-    return () => c.abort();
-  }, []);
-  useEffect(() => {
-    const p = new URLSearchParams();
-    if (q) p.set("q", q);
-    if (roles.length !== 2) p.set("roles", roles.join(","));
-    tags.forEach((t) => p.append("tag", t));
-    if (mode === "all") p.set("match", "all");
-    if (locationFilter !== "all") p.set("location", locationFilter);
+    const params = new URLSearchParams();
+    if (q) params.set("q", q);
+    if (roles.length !== 2) params.set("roles", roles.join(","));
+    tags.forEach((tag) => params.append("tag", tag));
+    if (mode === "all") params.set("match", "all");
+    if (locationFilter !== "all") params.set("location", locationFilter);
     history.replaceState(
       null,
       "",
-      `${location.pathname}${p.size ? "?" + p : ""}`,
+      `${location.pathname}${params.size ? `?${params}` : ""}`,
     );
   }, [q, roles, tags, mode, locationFilter]);
-  const people = dataset?.people || [];
-  const filtered = useMemo(
-    () =>
-      people.filter(
-        (p) =>
-          roles.some((r) => p.roles.includes(r)) &&
-          (locationFilter === "all" ||
-            (locationFilter === "mapped" ? !!p.location : !p.location)) &&
-          (!q ||
-            `${p.name} ${p.intro} ${p.location?.city || ""}`
-              .toLowerCase()
-              .includes(q.toLowerCase())) &&
-          (!tags.length ||
-            (mode === "all"
-              ? tags.every((t) => p.tags.some((x) => x.label === t))
-              : tags.some((t) => p.tags.some((x) => x.label === t)))),
-      ),
-    [people, roles, locationFilter, q, tags, mode],
-  );
+
+  const filtered = useMemo(() => {
+    const needle = q.trim().toLowerCase();
+    return people.filter((person) => {
+      const searchable = [
+        person.name,
+        person.intro,
+        person.location?.city,
+        person.locationText,
+        person.project,
+        ...(person.backgroundResearchInterests || []),
+        ...(person.specificMeans || []),
+        ...(person.specificEnds || []),
+        ...(person.interests || []),
+        ...person.tags.map((tag) => tag.label),
+      ]
+        .filter(Boolean)
+        .join(" ")
+        .toLowerCase();
+      const tagMatch =
+        !tags.length ||
+        (mode === "all"
+          ? tags.every((tag) => person.tags.some((item) => item.label === tag))
+          : tags.some((tag) => person.tags.some((item) => item.label === tag)));
+      return (
+        roles.some((role) => person.roles.includes(role)) &&
+        (locationFilter === "all" ||
+          (locationFilter === "mapped" ? !!person.location : !person.location)) &&
+        (!needle || searchable.includes(needle)) &&
+        tagMatch
+      );
+    });
+  }, [roles, locationFilter, q, tags, mode]);
+
   const tagGroups = useMemo(() => {
     const counts = new Map<
       string,
       { category: string; label: string; count: number }
     >();
-    people.forEach((p) =>
-      p.tags.forEach((t) =>
-        counts.set(`${t.category}:${t.label}`, {
-          ...t,
-          count: (counts.get(`${t.category}:${t.label}`)?.count || 0) + 1,
-        }),
-      ),
+    people.forEach((person) =>
+      person.tags.forEach((tag) => {
+        const key = `${tag.category}:${tag.label}`;
+        counts.set(key, {
+          ...tag,
+          count: (counts.get(key)?.count || 0) + 1,
+        });
+      }),
     );
     return ["Methods & approaches", "Research goals", "Outside research"]
       .map((category) => ({
         category,
         items: [...counts.values()]
           .filter(
-            (t) =>
-              t.category === category &&
-              t.label.toLowerCase().includes(tagSearch.toLowerCase()),
+            (tag) =>
+              tag.category === category &&
+              tag.label.toLowerCase().includes(tagSearch.toLowerCase()),
           )
           .sort((a, b) => b.count - a.count || a.label.localeCompare(b.label)),
       }))
-      .filter((g) => g.items.length);
-  }, [people, tagSearch]);
-  const mapped = filtered.filter((p) => p.location),
-    cities = new Set(mapped.map((p) => p.location!.city));
-  const toggleTag = (t: string) =>
-    setTags((v) => (v.includes(t) ? v.filter((x) => x !== t) : [...v, t]));
+      .filter((group) => group.items.length);
+  }, [tagSearch]);
+
+  const mapped = filtered.filter((person) => person.location);
+  const cities = new Set(mapped.map((person) => person.location!.city));
+  const toggleTag = (tag: string) =>
+    setTags((current) =>
+      current.includes(tag)
+        ? current.filter((candidate) => candidate !== tag)
+        : [...current, tag],
+    );
   const clear = () => {
     setQ("");
     setRoles(["mentor", "mentee"]);
@@ -159,19 +169,14 @@ export default function App() {
     setTagSearch("");
     setSelected(null);
   };
+
   const filters = (
     <>
       <Group justify="space-between" mb="lg">
-        <Text fw={700} size="lg">
-          Find your people
-        </Text>
-        <Button variant="subtle" size="compact-xs" onClick={clear}>
-          Reset
-        </Button>
+        <Text fw={700} size="lg">Find your people</Text>
+        <Button variant="subtle" size="compact-xs" onClick={clear}>Reset</Button>
       </Group>
-      <Text className="eyebrow" mb="sm">
-        COMMUNITY ROLE
-      </Text>
+      <Text className="eyebrow" mb="sm">COMMUNITY ROLE</Text>
       <Checkbox.Group value={roles} onChange={setRoles}>
         <Stack gap="sm">
           {Object.entries(roleLabels).map(([value, label]) => (
@@ -182,7 +187,7 @@ export default function App() {
                 color={value === "mentor" ? "violet" : "teal"}
               />
               <Text size="xs" c="dimmed">
-                {people.filter((p) => p.roles.includes(value)).length}
+                {people.filter((person) => person.roles.includes(value)).length}
               </Text>
             </Group>
           ))}
@@ -190,7 +195,6 @@ export default function App() {
       </Checkbox.Group>
       <Divider my="xl" />
       <Select
-        mt="md"
         label="Location"
         data={[
           { value: "all", label: "Everyone" },
@@ -198,154 +202,97 @@ export default function App() {
           { value: "unmapped", label: "Location not stated" },
         ]}
         value={locationFilter}
-        onChange={(v) => setLocationFilter(v || "all")}
+        onChange={(value) => setLocationFilter(value || "all")}
       />
       <Divider my="xl" />
       <Group justify="space-between" mb="sm">
         <Text className="eyebrow">COMMON GROUND</Text>
-        {tags.length > 0 && (
-          <Badge color="teal" size="sm">
-            {tags.length}
-          </Badge>
-        )}
+        {!!tags.length && <Badge color="teal" size="sm">{tags.length}</Badge>}
       </Group>
       <TextInput
         aria-label="Search tags"
         placeholder="Search methods, goals, hobbies…"
         leftSection={<IconSearch size={16} />}
         value={tagSearch}
-        onChange={(e) => setTagSearch(e.currentTarget.value)}
+        onChange={(event) => setTagSearch(event.currentTarget.value)}
       />
       <Group justify="space-between" my="md">
-        <Text size="xs" c="dimmed">
-          Match selected tags
-        </Text>
+        <Text size="xs" c="dimmed">Match selected tags</Text>
         <SegmentedControl
           size="xs"
           value={mode}
           onChange={setMode}
-          data={[
-            { label: "Any", value: "any" },
-            { label: "All", value: "all" },
-          ]}
+          data={[{ label: "Any", value: "any" }, { label: "All", value: "all" }]}
         />
       </Group>
       <div className="tag-options">
-        {tagGroups.map((g) => (
-          <div key={g.category} className="tag-group">
+        {tagGroups.map((group) => (
+          <div key={group.category} className="tag-group">
             <Text size="xs" fw={700} c="dimmed" mb="sm">
-              {g.category.toUpperCase()}
+              {group.category.toUpperCase()}
             </Text>
             <Stack gap="sm">
-              {g.items.map((t) => (
-                <Group
-                  key={`${g.category}:${t.label}`}
-                  wrap="nowrap"
-                  justify="space-between"
-                  align="flex-start"
-                >
+              {group.items.map((tag) => (
+                <Group key={`${group.category}:${tag.label}`} wrap="nowrap" justify="space-between" align="flex-start">
                   <Checkbox
-                    label={t.label}
-                    checked={tags.includes(t.label)}
-                    onChange={() => toggleTag(t.label)}
+                    label={tag.label}
+                    checked={tags.includes(tag.label)}
+                    onChange={() => toggleTag(tag.label)}
                     size="xs"
                   />
-                  <Text size="xs" c="dimmed">
-                    {t.count}
-                  </Text>
+                  <Text size="xs" c="dimmed">{tag.count}</Text>
                 </Group>
               ))}
             </Stack>
           </div>
         ))}
-        {!tagGroups.length && (
-          <Text c="dimmed" size="sm">
-            No tags found. Try another term.
-          </Text>
-        )}
       </div>
     </>
   );
-  const card = (p: Person) => (
+
+  const card = (person: Person) => (
     <button
-      className={`person-card ${selected?.id === p.id ? "active" : ""}`}
-      key={p.id}
-      onClick={() => setSelected(p)}
+      className={`person-card ${selected?.id === person.id ? "active" : ""}`}
+      key={person.id}
+      onClick={() => setSelected(person)}
     >
       <Group wrap="nowrap" align="flex-start">
-        <Avatar color={roleColor(p)} radius="xl" size={42}>
-          {initials(p.name)}
-        </Avatar>
+        <Avatar color={roleColor(person)} radius="xl" size={42}>{initials(person.name)}</Avatar>
         <div className="person-summary">
           <Group gap="xs" justify="space-between">
-            <Text fw={650} size="sm">
-              {p.name}
-            </Text>
+            <Text fw={650} size="sm">{person.name}</Text>
             <IconArrowUpRight size={15} color="#8b94a2" />
           </Group>
           <Text size="xs" c="dimmed" mt={3}>
-            <IconMapPin size={12} />{" "}
-            {p.location
-              ? p.location.city + (p.location.inferred ? " · inferred" : "")
-              : "Location not stated"}
+            <IconMapPin size={12} /> {person.location?.city || person.locationText || "Location not stated"}
           </Text>
         </div>
       </Group>
-      <Text size="sm" lineClamp={2} mt="sm" c="#647084">
-        {p.intro}
-      </Text>
+      <Text size="sm" lineClamp={2} mt="sm" c="#647084">{person.intro}</Text>
       <Group gap={5} mt="sm">
-        <Badge color={roleColor(p)} variant="light" size="xs">
-          {p.roles.join(" + ")}
-        </Badge>
-        {p.tags.slice(0, 2).map((t) => (
-          <Badge key={`${t.category}:${t.label}`} variant="outline" color="gray" size="xs">
-            {t.label}
-          </Badge>
+        <Badge color={roleColor(person)} variant="light" size="xs">{person.roles.join(" + ")}</Badge>
+        {person.tags.slice(0, 2).map((tag) => (
+          <Badge key={`${tag.category}:${tag.label}`} variant="outline" color="gray" size="xs">{tag.label}</Badge>
         ))}
       </Group>
     </button>
   );
-  if (error)
-    return (
-      <div className="loading">
-        <Alert color="red" title="Directory unavailable">
-          {error}
-          <Button mt="md" onClick={() => location.reload()}>
-            Try again
-          </Button>
-        </Alert>
-      </div>
-    );
-  if (!dataset)
-    return (
-      <div className="loading">
-        <Loader />
-        <Text>Finding common ground…</Text>
-      </div>
-    );
+
   return (
     <div className="app">
       <header className="header">
         <Group gap="sm">
-          <div className="brand-symbol">
-            <IconCompass size={27} />
-          </div>
+          <div className="brand-symbol"><IconCompass size={27} /></div>
           <Text fw={850} size="xl" lts={-1}>
-            SPAR<span className="brand-divider">/</span>
-            <span className="brand-subtitle">common ground</span>
+            SPAR<span className="brand-divider">/</span><span className="brand-subtitle">common ground</span>
           </Text>
-          <Badge variant="light" color="gray" className="community-badge">
-            Community atlas
-          </Badge>
+          <Badge variant="light" color="gray" className="community-badge">Community atlas</Badge>
         </Group>
         <Group gap="xs">
           <Button
             variant="subtle"
             color="gray"
-            leftSection={
-              copied ? <IconCheck size={17} /> : <IconArrowUpRight size={17} />
-            }
+            leftSection={copied ? <IconCheck size={17} /> : <IconArrowUpRight size={17} />}
             onClick={async () => {
               try {
                 await navigator.clipboard.writeText(location.href);
@@ -357,51 +304,22 @@ export default function App() {
           >
             {copied ? "Copied" : "Share view"}
           </Button>
-          <Button
-            component="a"
-            href="https://spar2025.slack.com"
-            target="_blank"
-            rel="noreferrer"
-            variant="default"
-            leftSection={<IconBrandSlack size={17} />}
-          >
-            Open Slack
-          </Button>
+          <Button component="a" href="https://spar2025.slack.com" target="_blank" rel="noreferrer" variant="default" leftSection={<IconBrandSlack size={17} />}>Open Slack</Button>
         </Group>
       </header>
+
       <section className="intro">
         <div>
-          <Text className="eyebrow" c="teal" mb={9}>
-            A LITTLE CLOSER TO YOUR NEXT COLLABORATOR
-          </Text>
-          <Title order={1}>
-            Big ideas. <span>Common ground.</span>
-          </Title>
-          <Text c="dimmed" mt="sm">
-            Find a shared interest. Meet someone nearby. Start a conversation.
-          </Text>
+          <Text className="eyebrow" c="teal" mb={9}>A LITTLE CLOSER TO YOUR NEXT COLLABORATOR</Text>
+          <Title order={1}>Big ideas. <span>Common ground.</span></Title>
+          <Text c="dimmed" mt="sm">Find a shared research thread, a nearby collaborator, or something to talk about outside work.</Text>
         </div>
         <Group gap={32} className="stats">
-          <div>
-            <Text className="stat-number">{people.length}</Text>
-            <Text size="xs" c="dimmed">
-              community members
-            </Text>
-          </div>
-          <div>
-            <Text className="stat-number">
-              {
-                new Set(
-                  people.flatMap((p) => (p.location ? [p.location.city] : [])),
-                ).size
-              }
-            </Text>
-            <Text size="xs" c="dimmed">
-              cities connected
-            </Text>
-          </div>
+          <div><Text className="stat-number">{people.length}</Text><Text size="xs" c="dimmed">community members</Text></div>
+          <div><Text className="stat-number">{new Set(people.flatMap((person) => person.location ? [person.location.city] : [])).size}</Text><Text size="xs" c="dimmed">cities connected</Text></div>
         </Group>
       </section>
+
       <div className="workspace">
         <aside className="filters">{filters}</aside>
         <main className="main">
@@ -409,260 +327,82 @@ export default function App() {
             <TextInput
               className="person-search"
               aria-label="Search people"
-              placeholder="Search people, places, and interests"
+              placeholder="Search people, projects, methods, goals…"
               leftSection={<IconSearch size={18} />}
               value={q}
-              onChange={(e) => setQ(e.currentTarget.value)}
-              rightSection={
-                q ? (
-                  <ActionIcon
-                    aria-label="Clear search"
-                    variant="subtle"
-                    onClick={() => setQ("")}
-                  >
-                    <IconX size={14} />
-                  </ActionIcon>
-                ) : null
-              }
+              onChange={(event) => setQ(event.currentTarget.value)}
+              rightSection={q ? <ActionIcon aria-label="Clear search" variant="subtle" onClick={() => setQ("")}><IconX size={14} /></ActionIcon> : null}
             />
-            <Button
-              className="mobile-filter-button"
-              variant="default"
-              leftSection={<IconFilter size={16} />}
-              onClick={() => setMobileFilters(true)}
-            >
-              Filters
-            </Button>
+            <Button className="mobile-filter-button" variant="default" leftSection={<IconFilter size={16} />} onClick={() => setMobileFilters(true)}>Filters</Button>
             <SegmentedControl
               value={view}
               onChange={setView}
               data={[
-                {
-                  value: "map",
-                  label: (
-                    <Group gap={6}>
-                      <IconWorld size={15} />
-                      Map
-                    </Group>
-                  ),
-                },
-                {
-                  value: "list",
-                  label: (
-                    <Group gap={6}>
-                      <IconUsers size={15} />
-                      Directory
-                    </Group>
-                  ),
-                },
+                { value: "map", label: <Group gap={6}><IconWorld size={15} />Map</Group> },
+                { value: "list", label: <Group gap={6}><IconUsers size={15} />Directory</Group> },
               ]}
             />
           </div>
-          {tags.length > 0 && (
+
+          {!!tags.length && (
             <Group gap={6} className="selected-tags">
-              {tags.map((t) => (
-                <Button
-                  key={t}
-                  variant="light"
-                  size="compact-xs"
-                  rightSection={<IconX size={12} />}
-                  onClick={() => toggleTag(t)}
-                >
-                  {t}
-                </Button>
-              ))}
-              <Button
-                variant="subtle"
-                size="compact-xs"
-                color="gray"
-                onClick={() => setTags([])}
-              >
-                Clear tags
-              </Button>
+              {tags.map((tag) => <Button key={tag} variant="light" size="compact-xs" rightSection={<IconX size={12} />} onClick={() => toggleTag(tag)}>{tag}</Button>)}
+              <Button variant="subtle" size="compact-xs" color="gray" onClick={() => setTags([])}>Clear tags</Button>
             </Group>
           )}
+
           <Group className="results-heading" justify="space-between">
-            <Text size="sm">
-              <b>{filtered.length} people</b>{" "}
-              <span className="muted">with something in common</span>
-            </Text>
-            <Text size="xs" c="dimmed">
-              {mapped.length} on the map · {cities.size} cities
-            </Text>
+            <Text size="sm"><b>{filtered.length} people</b> <span className="muted">with something in common</span></Text>
+            <Text size="xs" c="dimmed">{mapped.length} on the map · {cities.size} cities</Text>
           </Group>
+
           {view === "map" ? (
             <div className="map-layout">
               <section className="map-panel" aria-label="Community map">
-                <Suspense
-                  fallback={
-                    <div className="loading">
-                      <Loader />
-                    </div>
-                  }
-                >
-                  <PeopleMap
-                    people={filtered}
-                    focus={selected}
-                    onSelect={setSelected}
-                    reset={reset}
-                  />
+                <Suspense fallback={<div className="loading"><Loader /></div>}>
+                  <PeopleMap people={filtered} focus={selected} onSelect={setSelected} reset={reset} />
                 </Suspense>
-                <Button
-                  className="fit-map"
-                  size="xs"
-                  variant="white"
-                  color="dark"
-                  leftSection={<IconFocusCentered size={16} />}
-                  onClick={() => {
-                    setSelected(null);
-                    setReset((v) => v + 1);
-                  }}
-                >
-                  Fit everyone
-                </Button>
-                <div className="map-legend">
-                  <span>
-                    <i className="dot mentor" />
-                    Mentor
-                  </span>
-                  <span>
-                    <i className="dot mentee" />
-                    Mentee
-                  </span>
-                </div>
-                {!mapped.length && (
-                  <div className="map-empty">
-                    <Text fw={700}>No mapped locations in this selection</Text>
-                    <Text size="sm" c="dimmed">
-                      Try different filters or explore the directory.
-                    </Text>
-                  </div>
-                )}
+                <Button className="fit-map" size="xs" variant="white" color="dark" leftSection={<IconFocusCentered size={16} />} onClick={() => { setSelected(null); setReset((value) => value + 1); }}>Fit everyone</Button>
+                <div className="map-legend"><span><i className="dot mentor" />Mentor</span><span><i className="dot mentee" />Mentee</span></div>
+                {!mapped.length && <div className="map-empty"><Text fw={700}>No mapped locations in this selection</Text><Text size="sm" c="dimmed">Try different filters or explore the directory.</Text></div>}
               </section>
               <section className="people-panel">
-                <Group justify="space-between" p="md">
-                  <Text fw={700} size="sm">
-                    Meet the community
-                  </Text>
-                  <Badge variant="light" color="gray">
-                    {filtered.length}
-                  </Badge>
-                </Group>
-                <ScrollArea className="people-scroll">
-                  {filtered.map(card)}
-                </ScrollArea>
+                <Group justify="space-between" p="md"><Text fw={700} size="sm">Meet the community</Text><Badge variant="light" color="gray">{filtered.length}</Badge></Group>
+                <ScrollArea className="people-scroll">{filtered.map(card)}</ScrollArea>
               </section>
             </div>
           ) : (
             <div className="directory">
               {filtered.map(card)}
-              {!filtered.length && (
-                <div className="empty">
-                  <Text fw={700}>No matches yet</Text>
-                  <Text size="sm" c="dimmed">
-                    Try clearing a filter or broadening the search.
-                  </Text>
-                </div>
-              )}
+              {!filtered.length && <div className="empty"><Text fw={700}>No matches yet</Text><Text size="sm" c="dimmed">Try clearing a filter or broadening the search.</Text></div>}
             </div>
           )}
-          <footer>
-            <Text size="xs" c="dimmed">
-              City-level locations only · No precise addresses
-            </Text>
-            <Text size="xs" c="dimmed">
-              Fall 2026 introductions
-            </Text>
-          </footer>
+          <footer><Text size="xs" c="dimmed">City-level participant locations · browser location stays in your browser</Text><Text size="xs" c="dimmed">Fall 2026 introductions</Text></footer>
         </main>
       </div>
-      <Drawer
-        opened={mobileFilters}
-        onClose={() => setMobileFilters(false)}
-        title="Find your people"
-        padding="md"
-      >
-        {filters}
-      </Drawer>
-      <Drawer
-        opened={!!selected}
-        onClose={() => setSelected(null)}
-        position="right"
-        size="md"
-        title={selected?.name}
-      >
+
+      <Drawer opened={mobileFilters} onClose={() => setMobileFilters(false)} title="Find your people" padding="md">{filters}</Drawer>
+      <Drawer opened={!!selected} onClose={() => setSelected(null)} position="right" size="md" title={selected?.name}>
         {selected && (
           <Stack>
             <Group>
-              <Avatar color={roleColor(selected)} size="lg" radius="xl">
-                {initials(selected.name)}
-              </Avatar>
+              <Avatar color={roleColor(selected)} size="lg" radius="xl">{initials(selected.name)}</Avatar>
               <div>
-                <Badge color={roleColor(selected)} variant="light">
-                  {selected.roles.join(" + ")}
-                </Badge>
-                <Text size="sm" c="dimmed" mt={5}>
-                  {selected.location?.city || selected.locationText || "Location not stated"}
-                </Text>
+                <Badge color={roleColor(selected)} variant="light">{selected.roles.join(" + ")}</Badge>
+                <Text size="sm" c="dimmed" mt={5}>{selected.location?.city || selected.locationText || "Location not stated"}</Text>
               </div>
             </Group>
-            {selected.project && (
-              <div>
-                <Text size="xs" fw={700} c="dimmed" mb={4}>
-                  SPAR PROJECT
-                </Text>
-                {selected.projectUrl ? (
-                  <Button
-                    component="a"
-                    href={selected.projectUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    variant="subtle"
-                    size="compact-sm"
-                    px={0}
-                    rightSection={<IconArrowUpRight size={14} />}
-                  >
-                    {selected.project}
-                  </Button>
-                ) : (
-                  <Text size="sm">{selected.project}</Text>
-                )}
-              </div>
-            )}
+            {selected.project && <div><Text size="xs" fw={700} c="dimmed" mb={4}>SPAR PROJECT</Text>{selected.projectUrl ? <Button component="a" href={selected.projectUrl} target="_blank" rel="noreferrer" variant="subtle" size="compact-sm" px={0} rightSection={<IconArrowUpRight size={14} />}>{selected.project}</Button> : <Text size="sm">{selected.project}</Text>}</div>}
             <Divider />
-            <Text size="sm" className="intro-copy">
-              {selected.intro}
-            </Text>
-            {!!selected.tags.length && (
-              <Group gap={6}>
-                {selected.tags.map((t) => (
-                  <Badge key={`${t.category}:${t.label}`} variant="light" color="gray">
-                    {t.label}
-                  </Badge>
-                ))}
-              </Group>
-            )}
+            <Text size="sm" className="intro-copy">{selected.intro}</Text>
+            {!!selected.tags.length && <Group gap={6}>{selected.tags.map((tag) => <Badge key={`${tag.category}:${tag.label}`} variant="light" color="gray">{tag.label}</Badge>)}</Group>}
+            {!!selected.backgroundResearchInterests?.length && <div><Text size="xs" fw={700} c="dimmed" mb={6}>BACKGROUND RESEARCH</Text><Text size="sm">{selected.backgroundResearchInterests.join(" · ")}</Text></div>}
             <Divider />
             <Group>
-              <Button
-                component="a"
-                href={selected.slackUrl}
-                target="_blank"
-                rel="noreferrer"
-                leftSection={<IconBrandSlack size={16} />}
-              >
-                Message on Slack
-              </Button>
-              <Button
-                component="a"
-                href={selected.sourceUrl}
-                target="_blank"
-                rel="noreferrer"
-                variant="default"
-                rightSection={<IconArrowUpRight size={14} />}
-              >
-                Introduction
-              </Button>
+              {selected.slackUrl && <Button component="a" href={selected.slackUrl} target="_blank" rel="noreferrer" leftSection={<IconBrandSlack size={16} />}>Message on Slack</Button>}
+              {selected.sourceUrl && <Button component="a" href={selected.sourceUrl} target="_blank" rel="noreferrer" variant="default" rightSection={<IconArrowUpRight size={14} />}>Introduction</Button>}
+              {selected.socialMedia?.linkedin && <Button component="a" href={selected.socialMedia.linkedin} target="_blank" rel="noreferrer" variant="default" leftSection={<IconBrandLinkedin size={15} />}>LinkedIn</Button>}
+              {selected.websites?.[0] && <Button component="a" href={selected.websites[0]} target="_blank" rel="noreferrer" variant="subtle" leftSection={<IconExternalLink size={15} />}>Website</Button>}
             </Group>
           </Stack>
         )}
