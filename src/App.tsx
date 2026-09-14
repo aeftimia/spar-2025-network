@@ -36,14 +36,9 @@ const PeopleMap = lazy(() => import("./PeopleMap"));
 const roleLabels: Record<string, string> = {
   mentor: "Mentors",
   mentee: "Mentees",
-  unknown: "Role not stated",
 };
 const roleColor = (p: Person) =>
-  p.roles.includes("mentor")
-    ? "violet"
-    : p.roles.includes("mentee")
-      ? "teal"
-      : "gray";
+  p.roles.includes("mentor") ? "violet" : "teal";
 const initials = (name: string) =>
   name
     .split(" ")
@@ -55,8 +50,11 @@ const getInitial = () => {
   return {
     q: p.get("q") || "",
     roles: p.has("roles")
-      ? p.get("roles")!.split(",").filter(Boolean)
-      : ["mentor", "mentee", "unknown"],
+      ? p
+          .get("roles")!
+          .split(",")
+          .filter((role) => role === "mentor" || role === "mentee")
+      : ["mentor", "mentee"],
     tags: p.getAll("tag"),
     mode: p.get("match") === "all" ? "all" : "any",
     location: p.get("location") || "all",
@@ -93,7 +91,7 @@ export default function App() {
   useEffect(() => {
     const p = new URLSearchParams();
     if (q) p.set("q", q);
-    if (roles.length !== 3) p.set("roles", roles.join(","));
+    if (roles.length !== 2) p.set("roles", roles.join(","));
     tags.forEach((t) => p.append("tag", t));
     if (mode === "all") p.set("match", "all");
     if (locationFilter !== "all") p.set("location", locationFilter);
@@ -129,13 +127,13 @@ export default function App() {
     >();
     people.forEach((p) =>
       p.tags.forEach((t) =>
-        counts.set(t.label, {
+        counts.set(`${t.category}:${t.label}`, {
           ...t,
-          count: (counts.get(t.label)?.count || 0) + 1,
+          count: (counts.get(`${t.category}:${t.label}`)?.count || 0) + 1,
         }),
       ),
     );
-    return ["Research", "Tooling", "Objectives", "Interests"]
+    return ["Methods & approaches", "Research goals", "Outside research"]
       .map((category) => ({
         category,
         items: [...counts.values()]
@@ -144,7 +142,7 @@ export default function App() {
               t.category === category &&
               t.label.toLowerCase().includes(tagSearch.toLowerCase()),
           )
-          .sort((a, b) => b.count - a.count),
+          .sort((a, b) => b.count - a.count || a.label.localeCompare(b.label)),
       }))
       .filter((g) => g.items.length);
   }, [people, tagSearch]);
@@ -154,7 +152,7 @@ export default function App() {
     setTags((v) => (v.includes(t) ? v.filter((x) => x !== t) : [...v, t]));
   const clear = () => {
     setQ("");
-    setRoles(["mentor", "mentee", "unknown"]);
+    setRoles(["mentor", "mentee"]);
     setTags([]);
     setMode("any");
     setLocationFilter("all");
@@ -181,13 +179,7 @@ export default function App() {
               <Checkbox
                 value={value}
                 label={label}
-                color={
-                  value === "mentor"
-                    ? "violet"
-                    : value === "mentee"
-                      ? "teal"
-                      : "gray"
-                }
+                color={value === "mentor" ? "violet" : "teal"}
               />
               <Text size="xs" c="dimmed">
                 {people.filter((p) => p.roles.includes(value)).length}
@@ -219,7 +211,7 @@ export default function App() {
       </Group>
       <TextInput
         aria-label="Search tags"
-        placeholder="Search interests and tools…"
+        placeholder="Search methods, goals, hobbies…"
         leftSection={<IconSearch size={16} />}
         value={tagSearch}
         onChange={(e) => setTagSearch(e.currentTarget.value)}
@@ -247,7 +239,7 @@ export default function App() {
             <Stack gap="sm">
               {g.items.map((t) => (
                 <Group
-                  key={t.label}
+                  key={`${g.category}:${t.label}`}
                   wrap="nowrap"
                   justify="space-between"
                   align="flex-start"
@@ -304,10 +296,10 @@ export default function App() {
       </Text>
       <Group gap={5} mt="sm">
         <Badge color={roleColor(p)} variant="light" size="xs">
-          {p.roles[0] === "unknown" ? "Role not stated" : p.roles.join(" + ")}
+          {p.roles.join(" + ")}
         </Badge>
         {p.tags.slice(0, 2).map((t) => (
-          <Badge key={t.label} variant="outline" color="gray" size="xs">
+          <Badge key={`${t.category}:${t.label}`} variant="outline" color="gray" size="xs">
             {t.label}
           </Badge>
         ))}
@@ -537,10 +529,6 @@ export default function App() {
                     <i className="dot mentee" />
                     Mentee
                   </span>
-                  <span>
-                    <i className="dot unknown" />
-                    Role not stated
-                  </span>
                 </div>
                 {!mapped.length && (
                   <div className="map-empty">
@@ -562,23 +550,37 @@ export default function App() {
                 </Group>
                 <ScrollArea className="people-scroll">
                   {filtered.map(card)}
-                  {!filtered.length && <Empty onReset={clear} />}
                 </ScrollArea>
               </section>
             </div>
           ) : (
-            <section className="directory">
+            <div className="directory">
               {filtered.map(card)}
-              {!filtered.length && <Empty onReset={clear} />}
-            </section>
+              {!filtered.length && (
+                <div className="empty">
+                  <Text fw={700}>No matches yet</Text>
+                  <Text size="sm" c="dimmed">
+                    Try clearing a filter or broadening the search.
+                  </Text>
+                </div>
+              )}
+            </div>
           )}
+          <footer>
+            <Text size="xs" c="dimmed">
+              City-level locations only · No precise addresses
+            </Text>
+            <Text size="xs" c="dimmed">
+              Fall 2026 introductions
+            </Text>
+          </footer>
         </main>
       </div>
       <Drawer
         opened={mobileFilters}
         onClose={() => setMobileFilters(false)}
-        title="Explore the community"
-        position="left"
+        title="Find your people"
+        padding="md"
       >
         {filters}
       </Drawer>
@@ -587,122 +589,84 @@ export default function App() {
         onClose={() => setSelected(null)}
         position="right"
         size="md"
-        title="A reason to reach out"
-        overlayProps={{ backgroundOpacity: 0.2 }}
+        title={selected?.name}
       >
         {selected && (
-          <Stack gap="lg">
+          <Stack>
             <Group>
-              <Avatar size={64} color={roleColor(selected)} radius="xl">
+              <Avatar color={roleColor(selected)} size="lg" radius="xl">
                 {initials(selected.name)}
               </Avatar>
               <div>
-                <Title order={3}>{selected.name}</Title>
-                <Text size="sm" c="dimmed">
-                  {selected.location?.city || "Location not stated"}
-                </Text>
-                <Badge mt="xs" color={roleColor(selected)}>
-                  {selected.roles[0] === "unknown"
-                    ? "Role not stated"
-                    : selected.roles.join(" + ")}
+                <Badge color={roleColor(selected)} variant="light">
+                  {selected.roles.join(" + ")}
                 </Badge>
+                <Text size="sm" c="dimmed" mt={5}>
+                  {selected.location?.city || selected.locationText || "Location not stated"}
+                </Text>
               </div>
             </Group>
-            <div>
-              <Text className="eyebrow" mb="sm">
-                COMMON GROUND
-              </Text>
+            {selected.project && (
+              <div>
+                <Text size="xs" fw={700} c="dimmed" mb={4}>
+                  SPAR PROJECT
+                </Text>
+                {selected.projectUrl ? (
+                  <Button
+                    component="a"
+                    href={selected.projectUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    variant="subtle"
+                    size="compact-sm"
+                    px={0}
+                    rightSection={<IconArrowUpRight size={14} />}
+                  >
+                    {selected.project}
+                  </Button>
+                ) : (
+                  <Text size="sm">{selected.project}</Text>
+                )}
+              </div>
+            )}
+            <Divider />
+            <Text size="sm" className="intro-copy">
+              {selected.intro}
+            </Text>
+            {!!selected.tags.length && (
               <Group gap={6}>
                 {selected.tags.map((t) => (
-                  <Button
-                    key={t.label}
-                    size="compact-xs"
-                    variant={tags.includes(t.label) ? "filled" : "light"}
-                    onClick={() => toggleTag(t.label)}
-                  >
+                  <Badge key={`${t.category}:${t.label}`} variant="light" color="gray">
                     {t.label}
-                  </Button>
+                  </Badge>
                 ))}
               </Group>
-              {!selected.tags.length && (
-                <Text size="sm" c="dimmed">
-                  Explore their profile to find a conversation starter.
-                </Text>
-              )}
-            </div>
-            <div>
-              <Group justify="space-between" mb="sm">
-                <Text fw={700} size="sm">
-                  About
-                </Text>
-              </Group>
-              <Text size="sm" className="intro-copy">
-                {selected.intro}
-              </Text>
-            </div>
-            <Button
-              component="a"
-              href={selected.sourceUrl}
-              target="_blank"
-              rel="noreferrer"
-              leftSection={<IconBrandSlack size={18} />}
-            >
-              View in Slack <IconArrowUpRight size={15} />
-            </Button>
-            <Button
-              component="a"
-              href={selected.slackUrl}
-              target="_blank"
-              rel="noreferrer"
-              variant="default"
-            >
-              Open Slack profile
-            </Button>
+            )}
             <Divider />
-            <Text fw={700} size="sm">
-              People with shared interests
-            </Text>
-            {people
-              .filter((p) => p.id !== selected.id)
-              .map((p) => ({
-                p,
-                shared: p.tags.filter((t) =>
-                  selected.tags.some((s) => s.label === t.label),
-                ),
-              }))
-              .filter((x) => x.shared.length)
-              .sort((a, b) => b.shared.length - a.shared.length)
-              .slice(0, 4)
-              .map(({ p, shared }) => (
-                <Button
-                  key={p.id}
-                  variant="subtle"
-                  justify="space-between"
-                  onClick={() => setSelected(p)}
-                  rightSection={
-                    <Text size="xs">{shared.length} shared tags</Text>
-                  }
-                >
-                  {p.name}
-                </Button>
-              ))}
+            <Group>
+              <Button
+                component="a"
+                href={selected.slackUrl}
+                target="_blank"
+                rel="noreferrer"
+                leftSection={<IconBrandSlack size={16} />}
+              >
+                Message on Slack
+              </Button>
+              <Button
+                component="a"
+                href={selected.sourceUrl}
+                target="_blank"
+                rel="noreferrer"
+                variant="default"
+                rightSection={<IconArrowUpRight size={14} />}
+              >
+                Introduction
+              </Button>
+            </Group>
           </Stack>
         )}
       </Drawer>
-    </div>
-  );
-}
-function Empty({ onReset }: { onReset: () => void }) {
-  return (
-    <div className="empty">
-      <IconSearch size={30} />
-      <Text fw={700}>No people match just yet</Text>
-      <Text size="sm" c="dimmed">
-        Try fewer tags, “Any” matching, or another role.
-      </Text>
-      <Button variant="light" mt="sm" onClick={onReset}>
-        Reset filters
-      </Button>
     </div>
   );
 }
