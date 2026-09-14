@@ -54,9 +54,9 @@
   font-size: 9px;
 }
 
-/* Fall 2026 introductions resolve to mentor or mentee; no third role is shown. */
-.map-legend span:last-child {
-  display: none;
+.map-legend,
+.map-empty {
+  display: none !important;
 }
 
 .map-panel {
