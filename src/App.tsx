@@ -11,7 +11,6 @@ import {
   MultiSelect,
   ScrollArea,
   SegmentedControl,
-  Select,
   Stack,
   Text,
   Title,
@@ -27,8 +26,6 @@ import {
   IconFocusCentered,
   IconMapPin,
   IconSearch,
-  IconUsers,
-  IconWorld,
 } from "@tabler/icons-react";
 import { dataset } from "./directory";
 import type { Person } from "./types";
@@ -62,7 +59,6 @@ function initialState() {
       : ["mentor", "mentee"],
     tags: params.getAll("tag"),
     mode: params.get("match") === "all" ? "all" : "any",
-    location: params.get("location") || "all",
   };
 }
 
@@ -74,22 +70,19 @@ export default function App() {
   const [selected, setSelected] = useState<Person | null>(null);
   const [mobileFilters, setMobileFilters] = useState(false);
   const [reset, setReset] = useState(0);
-  const [view, setView] = useState("map");
   const [copied, setCopied] = useState(false);
-  const [locationFilter, setLocationFilter] = useState(initial.location);
 
   useEffect(() => {
     const params = new URLSearchParams();
     if (roles.length !== 2) params.set("roles", roles.join(","));
     tags.forEach((tag) => params.append("tag", tag));
     if (mode === "all") params.set("match", "all");
-    if (locationFilter !== "all") params.set("location", locationFilter);
     history.replaceState(
       null,
       "",
       `${location.pathname}${params.size ? `?${params}` : ""}`,
     );
-  }, [roles, tags, mode, locationFilter]);
+  }, [roles, tags, mode]);
 
   const filtered = useMemo(() => {
     return people.filter((person) => {
@@ -101,14 +94,9 @@ export default function App() {
         (mode === "all"
           ? tags.every((tag) => personTagKeys.has(tag))
           : tags.some((tag) => personTagKeys.has(tag)));
-      return (
-        roles.some((role) => person.roles.includes(role)) &&
-        (locationFilter === "all" ||
-          (locationFilter === "mapped" ? !!person.location : !person.location)) &&
-        tagMatch
-      );
+      return roles.some((role) => person.roles.includes(role)) && tagMatch;
     });
-  }, [roles, locationFilter, tags, mode]);
+  }, [roles, tags, mode]);
 
   const tagData = useMemo(() => {
     const counts = new Map<
@@ -143,7 +131,6 @@ export default function App() {
     setRoles(["mentor", "mentee"]);
     setTags([]);
     setMode("any");
-    setLocationFilter("all");
     setSelected(null);
   };
 
@@ -170,17 +157,6 @@ export default function App() {
           ))}
         </Stack>
       </Checkbox.Group>
-      <Divider my="xl" />
-      <Select
-        label="Location"
-        data={[
-          { value: "all", label: "Everyone" },
-          { value: "mapped", label: "On the map" },
-          { value: "unmapped", label: "Location not stated" },
-        ]}
-        value={locationFilter}
-        onChange={(value) => setLocationFilter(value || "all")}
-      />
       <Divider my="xl" />
       <Group justify="space-between" mb="sm">
         <Text className="eyebrow">COMMON GROUND</Text>
@@ -286,14 +262,6 @@ export default function App() {
         <main className="main">
           <div className="toolbar">
             <Button className="mobile-filter-button" variant="default" leftSection={<IconFilter size={16} />} onClick={() => setMobileFilters(true)}>Filters</Button>
-            <SegmentedControl
-              value={view}
-              onChange={setView}
-              data={[
-                { value: "map", label: <Group gap={6}><IconWorld size={15} />Map</Group> },
-                { value: "list", label: <Group gap={6}><IconUsers size={15} />Directory</Group> },
-              ]}
-            />
           </div>
 
           <Group className="results-heading" justify="space-between">
@@ -301,25 +269,19 @@ export default function App() {
             <Text size="xs" c="dimmed">{mapped.length} on the map · {cities.size} cities</Text>
           </Group>
 
-          {view === "map" ? (
-            <div className="map-layout">
-              <section className="map-panel" aria-label="Community map">
-                <Suspense fallback={<div className="loading"><Loader /></div>}>
-                  <PeopleMap people={filtered} focus={selected} onSelect={setSelected} reset={reset} />
-                </Suspense>
-                <Button className="fit-map" size="xs" variant="white" color="dark" leftSection={<IconFocusCentered size={16} />} onClick={() => { setSelected(null); setReset((value) => value + 1); }}>Fit everyone</Button>
-              </section>
-              <section className="people-panel">
-                <Group justify="space-between" p="md"><Text fw={700} size="sm">Meet the community</Text><Badge variant="light" color="gray">{filtered.length}</Badge></Group>
-                <ScrollArea className="people-scroll">{filtered.map(card)}</ScrollArea>
-              </section>
-            </div>
-          ) : (
-            <div className="directory">
-              {filtered.map(card)}
-              {!filtered.length && <div className="empty"><Text fw={700}>No matches yet</Text><Text size="sm" c="dimmed">Try clearing a filter or broadening the search.</Text></div>}
-            </div>
-          )}
+          <div className="map-layout">
+            <section className="map-panel" aria-label="Community map">
+              <Suspense fallback={<div className="loading"><Loader /></div>}>
+                <PeopleMap people={filtered} focus={selected} onSelect={setSelected} reset={reset} />
+              </Suspense>
+              <Button className="fit-map" size="xs" variant="white" color="dark" leftSection={<IconFocusCentered size={16} />} onClick={() => { setSelected(null); setReset((value) => value + 1); }}>Fit everyone</Button>
+            </section>
+            <section className="people-panel">
+              <Group justify="space-between" p="md"><Text fw={700} size="sm">Meet the community</Text><Badge variant="light" color="gray">{filtered.length}</Badge></Group>
+              <ScrollArea className="people-scroll">{filtered.map(card)}</ScrollArea>
+            </section>
+          </div>
+
           <footer><Text size="xs" c="dimmed">City-level participant locations · browser location stays in your browser</Text><Text size="xs" c="dimmed">Fall 2026 introductions</Text></footer>
         </main>
       </div>
