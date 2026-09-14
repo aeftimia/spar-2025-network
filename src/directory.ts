@@ -1,7 +1,43 @@
-import rawDirectory from "../data/spar_fall_2026_introductions.json";
+import directoryJson from "../data/spar_fall_2026_introductions.json";
 import type { Dataset, Person, Tag } from "./types";
 
-const tagsFor = (person: (typeof rawDirectory.people)[number]): Tag[] => [
+type RawPerson = {
+  name: string;
+  location?: string | null;
+  description: string;
+  project?: string | null;
+  project_url?: string | null;
+  project_urls?: string[];
+  social_media?: Record<string, string>;
+  websites?: string[];
+  interests?: string[];
+  background_research_interests?: string[];
+  research_tags?: {
+    means?: string[];
+    ends?: string[];
+    specific_means?: string[];
+    specific_ends?: string[];
+  };
+  slack?: {
+    user_id?: string;
+    intro_date?: string;
+    source_url?: string;
+    profile_url?: string;
+    roles?: string[];
+    role_evidence?: string | null;
+  };
+  map_location?: Person["location"];
+};
+
+type RawDirectory = {
+  dataset: string;
+  generated_on: string;
+  people: RawPerson[];
+};
+
+const rawDirectory = directoryJson as unknown as RawDirectory;
+
+const tagsFor = (person: RawPerson): Tag[] => [
   ...(person.research_tags?.means || []).map((label) => ({
     category: "Methods & approaches",
     label,
