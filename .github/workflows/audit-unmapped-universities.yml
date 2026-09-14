@@ -1,0 +1,29 @@
+name: Audit unmapped university affiliations
+
+on:
+  push:
+    paths:
+      - .github/workflows/audit-unmapped-universities.yml
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Print unmapped academic affiliations
+        run: |
+          node --input-type=module <<'NODE'
+          import fs from 'node:fs';
+          const data = JSON.parse(fs.readFileSync('data/spar_fall_2026_introductions.json', 'utf8'));
+          const academic = /(university|college|institute of technology|\bMIT\b|\bETH\b|\bEPFL\b|\bPhD\b|undergrad|student|professor|postdoc|researcher at)/i;
+          for (const p of data.people) {
+            if (p.map_location) continue;
+            const haystack = [p.location, p.description, ...(p.background_research_interests || [])].filter(Boolean).join(' | ');
+            if (academic.test(haystack)) {
+              console.log(JSON.stringify({name:p.name, location:p.location, description:p.description}));
+            }
+          }
+          NODE
