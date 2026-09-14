@@ -1,59 +1,65 @@
 # SPAR Common Ground
 
-A small, login-free community map for `spar2025.slack.com`. React + Mantine, Leaflet, Vite, and SST. The entire directory is `public/data/people.json`; filtering and shared-interest suggestions run in the browser. No database, API server, or background jobs.
+A small, login-free Fall 2026 SPAR community atlas built with React, Mantine, Mapbox GL JS, Vite, and SST. Filtering, search, and shared-interest discovery run entirely in the browser; there is no database or API server.
+
+## Data model
+
+`data/spar_fall_2026_introductions.json` is the single runtime directory contract. The React app imports that JSON directly; there is no `people.json` compatibility projection.
+
+`data/fall_2026_slack_metadata.json` is raw refresh/provenance input only. Before dev/build, `scripts/build-fall26-directory.mjs` audits the enriched JSON in place and merges the fresh Fall 2026 Slack identity metadata into each person record. The script validates a one-to-one match across all 118 people and fails rather than silently shipping a partial cohort.
+
+The audit keeps three distinct discovery concepts:
+
+- `research_tags.means`: methods, disciplines, and research approaches.
+- `research_tags.ends`: research problems, safety goals, failure modes, and application objectives.
+- `interests`: non-research personal/common-ground interests only.
+
+Fine-grained `specific_means` / `specific_ends` remain available for precise matching. Redundant broad canonical parent tags are omitted from individual records when a more specific child is already present; the hierarchy remains in the top-level taxonomy for matching.
 
 ## Run
 
 ```sh
 npm ci
-npm run dev          # Vite only, no AWS needed
-npm run sst:dev      # SST development stage e2e with hot reload
+npm run dev          # audits/merges the canonical JSON, then starts Vite
+npm run sst:dev      # SST development stage with hot reload
 npm test
-npm run build
-npm run deploy      # production: https://spar2025.trekkit.io
+npm run build        # audits/merges the canonical JSON before building
+npm run deploy       # production: https://spar2025.trekkit.io
 ```
 
-SST needs your usual AWS credentials. The production domain uses Route 53 DNS for `trekkit.io`, an ACM certificate, S3, and CloudFront. Production resources are retained and protected; the e2e stage does not attach the production domain. SST manages the frontend command in dev mode. There are no application credentials in the frontend.
+SST injects `VITE_PUBLIC_MAPBOX_TOKEN` using `MapboxAccessToken` when `$dev` is true and `MapboxAccessTokenProd` otherwise.
 
-## Refresh the directory
+## Map behavior
 
-The initial snapshot was read through the Slack connector from all 384 available top-level messages in `#introductions` on September 13, 2026. It keeps the most recent substantive introduction per Slack user (369 people). Thread replies are not imported. The snapshot spans multiple years; filter by introduction year when recency matters. It is not a live roster of current SPAR participants.
+Pins are rendered as Mapbox GeoJSON symbol layers rather than DOM markers, so they remain attached to geography while panning, rotating, or pitching. Purple pins indicate mentors and teal pins indicate mentees; explicit mentors remain mentors and other Fall 2026 introducers are treated as mentees.
 
-To import a connector transcript stored locally:
+On initial map load, the browser requests location permission. If granted, the map shows a small local-only user-location dot and frames roughly a 50-mile radius around the user. That location is not written to the directory or sent to the app backend (there is no backend). If permission is unavailable or denied, the map falls back to fitting the cohort pins. Selecting a person frames roughly a 50-mile region around their stated city-level location, and “Fit everyone” returns to the full cohort view.
+
+Participant locations are city centroids only, never precise addresses. Ambiguous/unrecognized locations remain searchable as text but stay off the map.
+
+## Fall 2026 directory
+
+The roster contains 118 introductions from the September 10–13, 2026 Fall 2026 introduction run in `#introductions`; older cohorts are deliberately excluded. Fresh Slack metadata includes user IDs, introduction timestamps/dates, message permalinks, profile links, and role evidence. Project/background metadata may additionally come from SPAR project pages and confidently matched public professional or research profiles; unresolved information is left empty rather than guessed.
+
+## Refresh utilities
+
+To rerun the canonical merge/audit directly:
+
+```sh
+node scripts/build-fall26-directory.mjs
+```
+
+Generic Slack import utilities remain available for refreshing source material:
 
 ```sh
 npm run import:slack -- data/raw/introductions.txt
-```
-
-Alternatively, use a Slack JSON array with `{ user, name, text, ts, channel }` fields. `name` and `channel` are optional; normal Slack exports need names added from their `users.json` file. Missing names remain user IDs rather than invented identities.
-
-For a repeatable API refresh:
-
-```sh
-# Set SLACK_TOKEN securely in your shell first.
 SLACK_CHANNEL_IDS=C04NZ0MMSDV npm run sync:slack
-npm run build
-npm run deploy
 ```
 
-The token needs `channels:history` and `users:read`, plus membership in the source channel. Private channels also require `groups:history`. The script follows pagination, handles rate limits, resolves display names, and only overwrites the directory after a successful fetch. Raw imports and `.env` files are gitignored and are not copied into the build.
-
-## Extraction and corrections
-
-- Tags use a small, editable vocabulary in `scripts/extract.mjs`, grouped into research, projects, tooling, objectives, and interests. They describe text matches, not verified expertise.
-- Mentor/mentee labels require explicit introduction evidence. Many introductions don't state a role and remain in “Role not stated.” Do not assume every student is a mentee.
-- Locations use a local city dictionary and current-location phrases, avoiding birthplace, former schools, and planned travel. Unmatched/ambiguous locations stay off the map and remain in the directory.
-- Four manually reviewed university affiliations are mapped as **inferred** city locations. Their evidence is visible on profile cards. All pins are city centroids, never addresses.
-- `data/overrides.json` supports reviewed corrections by Slack user ID. Set `location` to `null` to unmap someone, supply `roles`, or replace tags. Review overrides on refresh: they intentionally persist.
-- Full introduction text (with emails removed), source dates, and Slack permalinks remain available for context. The static JSON is public wherever deployed.
-
-Checkbox filters combine selected roles with any/all tag matching. Search, roles, tag matching, introduction year, and location filters persist in shareable URLs. Map pins group everyone at the same coordinate, with all people accessible in the popup. The directory also includes unmapped people.
+When refreshing Fall 2026, update the enriched source and fresh Slack metadata together, then run the audit/merge before committing.
 
 ## Local examples followed
 
-- `~/weather-notifier` and `~/trekkit.io`: Vite, React, Mantine provider/theme, Tabler icons, static hosting.
-- `~/Documents/ChatGPT/Digman Inventory` (`farmstand`): e2e development stage, production retention/protection, domain isolated from dev.
-- `~/kitchen-share` (`vivirents`): map lifecycle cleanup, map/list layout, shared selection, URL-backed search.
+The Mapbox implementation intentionally follows the `aeftimia/kitchen-share` approach: a persistent Mapbox instance, GeoJSON sources, symbol-layer pins, and map-native click handling rather than HTML markers.
 
-References: [SST StaticSite](https://sst.dev/docs/component/aws/static-site/), [SST CLI](https://sst.dev/docs/reference/cli/), [SST custom domains](https://sst.dev/docs/custom-domains/), [Mantine](https://mantine.dev/), [OpenStreetMap tile usage](https://operations.osmfoundation.org/policies/tiles/).
-# spar-2025-network
+References: [SST](https://sst.dev/), [Mapbox GL JS](https://docs.mapbox.com/mapbox-gl-js/), [Mantine](https://mantine.dev/).

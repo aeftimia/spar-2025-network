@@ -17,6 +17,11 @@ export default $config({
           : undefined,
       build: { command: "npm run build", output: "dist" },
       dev: { command: "npm run dev" },
+      environment: {
+        VITE_PUBLIC_MAPBOX_TOKEN: $dev
+          ? process.env.MapboxAccessToken ?? ""
+          : process.env.MapboxAccessTokenProd ?? "",
+      },
     });
     return { url: site.url };
   },
