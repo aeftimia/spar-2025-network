@@ -6,6 +6,8 @@ declare const mapboxgl: any;
 
 const SOURCE_ID = "community-locations";
 const LAYER_ID = "community-pins";
+const USER_SOURCE_ID = "user-location";
+const USER_LAYER_ID = "user-location-dot";
 const MENTOR_ICON = "mentor-pin";
 const MENTEE_ICON = "mentee-pin";
 const ROLE_COLORS = {
@@ -44,7 +46,7 @@ function addPinIcon(map: any, name: string, color: string) {
   });
 }
 
-function regionBounds(lat: number, lng: number, radiusMiles = 100) {
+function regionBounds(lat: number, lng: number, radiusMiles = 50) {
   const latDelta = radiusMiles / 69;
   const cosLat = Math.max(Math.cos((lat * Math.PI) / 180), 0.2);
   const lngDelta = radiusMiles / (69 * cosLat);
@@ -52,6 +54,15 @@ function regionBounds(lat: number, lng: number, radiusMiles = 100) {
     [lng - lngDelta, lat - latDelta],
     [lng + lngDelta, lat + latDelta],
   ];
+}
+
+function fitRegion(map: any, lat: number, lng: number, animated = false) {
+  map.fitBounds(regionBounds(lat, lng, 50), {
+    padding: 55,
+    maxZoom: 10,
+    duration: animated ? 650 : 0,
+    essential: animated,
+  });
 }
 
 function fitPeople(map: any, people: Person[], animated = false) {
@@ -67,11 +78,7 @@ function fitPeople(map: any, people: Person[], animated = false) {
   }
 
   if (points.length === 1) {
-    map.fitBounds(regionBounds(points[0][1], points[0][0]), {
-      padding: 50,
-      maxZoom: 8,
-      duration: animated ? 550 : 0,
-    });
+    fitRegion(map, points[0][1], points[0][0], animated);
     return;
   }
 
@@ -86,6 +93,37 @@ function fitPeople(map: any, people: Person[], animated = false) {
   });
 }
 
+function showUserLocation(map: any, lat: number, lng: number) {
+  const data = {
+    type: "FeatureCollection",
+    features: [
+      {
+        type: "Feature",
+        geometry: { type: "Point", coordinates: [lng, lat] },
+        properties: {},
+      },
+    ],
+  };
+  const source = map.getSource(USER_SOURCE_ID);
+  if (source) {
+    source.setData(data);
+    return;
+  }
+  map.addSource(USER_SOURCE_ID, { type: "geojson", data });
+  map.addLayer({
+    id: USER_LAYER_ID,
+    type: "circle",
+    source: USER_SOURCE_ID,
+    paint: {
+      "circle-radius": 6,
+      "circle-color": "#2563eb",
+      "circle-stroke-color": "#ffffff",
+      "circle-stroke-width": 2,
+      "circle-opacity": 0.9,
+    },
+  });
+}
+
 export default function PeopleMap({
   people,
   focus,
@@ -94,7 +132,7 @@ export default function PeopleMap({
 }: {
   people: Person[];
   focus: Person | null;
-  onSelect: (p: Person) => void;
+  onSelect: (person: Person) => void;
   reset: number;
 }) {
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -103,6 +141,7 @@ export default function PeopleMap({
   const peopleRef = useRef(people);
   const groupByKeyRef = useRef(new Map<string, Person[]>());
   const onSelectRef = useRef(onSelect);
+  const lastResetRef = useRef(reset);
   const [mapReady, setMapReady] = useState(false);
   const [mapError, setMapError] = useState<string | null>(null);
   const token = import.meta.env.VITE_PUBLIC_MAPBOX_TOKEN as string | undefined;
@@ -126,7 +165,6 @@ export default function PeopleMap({
       type: "FeatureCollection" as const,
       features: groups.map(([key, group]) => {
         const first = group[0];
-        const role = roleFor(group);
         return {
           type: "Feature" as const,
           geometry: {
@@ -137,7 +175,7 @@ export default function PeopleMap({
             key,
             city: first.location!.city,
             count: group.length,
-            role,
+            role: roleFor(group),
             selected: group.some((person) => person.id === focus?.id) ? 1 : 0,
           },
         };
@@ -218,7 +256,6 @@ export default function PeopleMap({
           addPinIcon(map, MENTOR_ICON, ROLE_COLORS.mentor),
           addPinIcon(map, MENTEE_ICON, ROLE_COLORS.mentee),
         ]);
-
         map.addSource(SOURCE_ID, { type: "geojson", data: geojson });
         map.addLayer({
           id: LAYER_ID,
@@ -232,12 +269,7 @@ export default function PeopleMap({
               MENTOR_ICON,
               MENTEE_ICON,
             ],
-            "icon-size": [
-              "case",
-              ["==", ["get", "selected"], 1],
-              1.12,
-              1,
-            ],
+            "icon-size": ["case", ["==", ["get", "selected"], 1], 1.12, 1],
             "icon-anchor": "bottom",
             "icon-allow-overlap": true,
             "icon-ignore-placement": true,
@@ -255,9 +287,21 @@ export default function PeopleMap({
           map.getCanvas().style.cursor = "";
         });
 
-        fitPeople(map, peopleRef.current);
         setMapReady(true);
         setMapError(null);
+
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(
+            ({ coords }) => {
+              showUserLocation(map, coords.latitude, coords.longitude);
+              fitRegion(map, coords.latitude, coords.longitude, false);
+            },
+            () => fitPeople(map, peopleRef.current, false),
+            { enableHighAccuracy: false, timeout: 8000, maximumAge: 300000 },
+          );
+        } else {
+          fitPeople(map, peopleRef.current, false);
+        }
       } catch (error) {
         setMapError(error instanceof Error ? error.message : "Map could not load");
       }
@@ -280,33 +324,27 @@ export default function PeopleMap({
   useEffect(() => {
     const map = mapRef.current;
     if (!mapReady || !map) return;
-    const source = map.getSource(SOURCE_ID);
-    source?.setData(geojson);
+    map.getSource(SOURCE_ID)?.setData(geojson);
   }, [geojson, mapReady]);
 
   useEffect(() => {
     const map = mapRef.current;
-    if (!mapReady || !map) return;
-    fitPeople(map, people, reset !== 0);
-  }, [people, reset, mapReady]);
+    if (!mapReady || !map || reset === lastResetRef.current) return;
+    lastResetRef.current = reset;
+    fitPeople(map, peopleRef.current, true);
+  }, [reset, mapReady]);
 
   useEffect(() => {
     const map = mapRef.current;
     if (!mapReady || !map || !focus?.location) return;
-    const { lat, lng } = focus.location;
-    map.fitBounds(regionBounds(lat, lng, 100), {
-      padding: 55,
-      maxZoom: 8,
-      duration: 650,
-      essential: true,
-    });
+    fitRegion(map, focus.location.lat, focus.location.lng, true);
   }, [focus?.id, mapReady]);
 
   if (!token) {
     return (
       <Alert color="orange" className="map-error">
-        Mapbox access token is not configured. Set VITE_PUBLIC_MAPBOX_TOKEN, or
-        run through SST so it is injected from the stage-specific token.
+        Mapbox access token is not configured. Run through SST or set
+        VITE_PUBLIC_MAPBOX_TOKEN.
       </Alert>
     );
   }
