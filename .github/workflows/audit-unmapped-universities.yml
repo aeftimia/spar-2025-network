@@ -1,25 +1,50 @@
-name: Audit unmapped university affiliations
+name: Materialize university-derived map locations
 
 on:
   push:
     paths:
       - .github/workflows/audit-unmapped-universities.yml
 
+permissions:
+  contents: write
+
 jobs:
-  audit:
+  materialize:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Print every unmapped record
+      - name: Add current-affiliation location fallbacks
         run: |
           node --input-type=module <<'NODE'
           import fs from 'node:fs';
-          const data = JSON.parse(fs.readFileSync('data/spar_fall_2026_introductions.json', 'utf8'));
-          for (const p of data.people) {
-            if (p.map_location) continue;
-            console.log(JSON.stringify({name:p.name, location:p.location, description:p.description}));
-          }
+          const path = 'scripts/extract.mjs';
+          let text = fs.readFileSync(path, 'utf8');
+          text = text.replace(
+            '["Saarbrücken", 49.2402, 6.9969, "Saarbr[uü]cken"],',
+            '["Saarbrücken", 49.2402, 6.9969, "Saarbr[uü]cken|Saarland(?:,? Germany)?"],',
+          );
+          text = text.replace(
+            '["Cape Town", -33.9249, 18.4241, "Cape Town"],',
+            '["Cape Town", -33.9249, 18.4241, "Cape Town|South Africa\\\\s*\\\\(AIMS affiliation\\\\)"],',
+          );
+          fs.writeFileSync(path, text);
           NODE
+      - name: Rebuild canonical JSON
+        run: node scripts/build-fall26-directory.mjs
+      - name: Commit location fixes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add scripts/extract.mjs data/spar_fall_2026_introductions.json
+          if git diff --cached --quiet; then
+            echo "No location changes to commit"
+            exit 0
+          fi
+          git commit -m "Materialize expanded participant locations"
+          git push origin HEAD:main
