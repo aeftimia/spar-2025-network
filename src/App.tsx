@@ -19,7 +19,6 @@ import {
   IconArrowUpRight,
   IconBrandLinkedin,
   IconBrandSlack,
-  IconCheck,
   IconCompass,
   IconExternalLink,
   IconFilter,
@@ -70,7 +69,6 @@ export default function App() {
   const [selected, setSelected] = useState<Person | null>(null);
   const [mobileFilters, setMobileFilters] = useState(false);
   const [reset, setReset] = useState(0);
-  const [copied, setCopied] = useState(false);
 
   useEffect(() => {
     const params = new URLSearchParams();
@@ -225,24 +223,7 @@ export default function App() {
           </Text>
           <Badge variant="light" color="gray" className="community-badge">Community atlas</Badge>
         </Group>
-        <Group gap="xs">
-          <Button
-            variant="subtle"
-            color="gray"
-            leftSection={copied ? <IconCheck size={17} /> : <IconArrowUpRight size={17} />}
-            onClick={async () => {
-              try {
-                await navigator.clipboard.writeText(location.href);
-                setCopied(true);
-              } catch {
-                setCopied(false);
-              }
-            }}
-          >
-            {copied ? "Copied" : "Share view"}
-          </Button>
-          <Button component="a" href="https://spar2025.slack.com" target="_blank" rel="noreferrer" variant="default" leftSection={<IconBrandSlack size={17} />}>Open Slack</Button>
-        </Group>
+        <Button component="a" href="https://spar2025.slack.com" target="_blank" rel="noreferrer" variant="default" leftSection={<IconBrandSlack size={17} />}>Open Slack</Button>
       </header>
 
       <section className="intro">
