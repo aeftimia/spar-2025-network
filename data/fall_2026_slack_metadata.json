@@ -1,0 +1,1191 @@
+{
+  "source": "Fresh Fall 2026 #introductions Slack read",
+  "channel_id": "C04NZ0MMSDV",
+  "workspace": "spar2025.slack.com",
+  "cohort_window": {
+    "start": "2026-09-10",
+    "end": "2026-09-13"
+  },
+  "people": [
+    {
+      "name": "Sualeha",
+      "user_id": "U0C0TJLJ5KL",
+      "message_ts": "1789319469.242999",
+      "date": "2026-09-13",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789319469242999",
+      "profile_url": "https://spar2025.slack.com/team/U0C0TJLJ5KL"
+    },
+    {
+      "name": "Ryan Kim",
+      "user_id": "U0C14J594MT",
+      "message_ts": "1789318791.076999",
+      "date": "2026-09-13",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789318791076999",
+      "profile_url": "https://spar2025.slack.com/team/U0C14J594MT"
+    },
+    {
+      "name": "Marissa Liu",
+      "user_id": "U0C0C91D5JB",
+      "message_ts": "1789316620.444899",
+      "date": "2026-09-13",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789316620444899",
+      "profile_url": "https://spar2025.slack.com/team/U0C0C91D5JB"
+    },
+    {
+      "name": "Jojo Vargas",
+      "user_id": "U0C1CS54QKW",
+      "message_ts": "1789316532.770269",
+      "date": "2026-09-13",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789316532770269",
+      "profile_url": "https://spar2025.slack.com/team/U0C1CS54QKW"
+    },
+    {
+      "name": "Dora Woodruff",
+      "user_id": "U0C0VHLRL9X",
+      "message_ts": "1789316521.806129",
+      "date": "2026-09-13",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789316521806129",
+      "profile_url": "https://spar2025.slack.com/team/U0C0VHLRL9X"
+    },
+    {
+      "name": "Chloë Allen",
+      "user_id": "U0C1N0BMWKA",
+      "message_ts": "1789314451.348859",
+      "date": "2026-09-13",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789314451348859",
+      "profile_url": "https://spar2025.slack.com/team/U0C1N0BMWKA"
+    },
+    {
+      "name": "Astrid Stark",
+      "user_id": "U0C0C8AG163",
+      "message_ts": "1789314377.896729",
+      "date": "2026-09-13",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789314377896729",
+      "profile_url": "https://spar2025.slack.com/team/U0C0C8AG163"
+    },
+    {
+      "name": "Vincent Wolowski",
+      "user_id": "U0C0P3V8VRB",
+      "message_ts": "1789313754.098699",
+      "date": "2026-09-13",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789313754098699",
+      "profile_url": "https://spar2025.slack.com/team/U0C0P3V8VRB"
+    },
+    {
+      "name": "Violeta Kastreva",
+      "user_id": "U0C1N0JV46L",
+      "message_ts": "1789313419.218349",
+      "date": "2026-09-13",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789313419218349",
+      "profile_url": "https://spar2025.slack.com/team/U0C1N0JV46L"
+    },
+    {
+      "name": "Nello Giuliani",
+      "user_id": "U0C0VHSF1BK",
+      "message_ts": "1789308811.286539",
+      "date": "2026-09-13",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789308811286539",
+      "profile_url": "https://spar2025.slack.com/team/U0C0VHSF1BK"
+    },
+    {
+      "name": "Julius Šula",
+      "user_id": "U0C0P440GJH",
+      "message_ts": "1789303886.014519",
+      "date": "2026-09-13",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789303886014519",
+      "profile_url": "https://spar2025.slack.com/team/U0C0P440GJH"
+    },
+    {
+      "name": "William Griffiths",
+      "user_id": "U0C1CS8QK0U",
+      "message_ts": "1789303249.139529",
+      "date": "2026-09-13",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789303249139529",
+      "profile_url": "https://spar2025.slack.com/team/U0C1CS8QK0U"
+    },
+    {
+      "name": "Antonio Badilla-Olivas",
+      "user_id": "U0C0VHDK7S5",
+      "message_ts": "1789290262.105429",
+      "date": "2026-09-13",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789290262105429",
+      "profile_url": "https://spar2025.slack.com/team/U0C0VHDK7S5"
+    },
+    {
+      "name": "Ksenia",
+      "user_id": "U0C0P43K31T",
+      "message_ts": "1789288761.111209",
+      "date": "2026-09-13",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789288761111209",
+      "profile_url": "https://spar2025.slack.com/team/U0C0P43K31T"
+    },
+    {
+      "name": "Anthony Nguyen",
+      "user_id": "U0C0RMLE3HC",
+      "message_ts": "1789285744.341779",
+      "date": "2026-09-13",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789285744341779",
+      "profile_url": "https://spar2025.slack.com/team/U0C0RMLE3HC"
+    },
+    {
+      "name": "Yitian Sun",
+      "user_id": "U0C0VHLLURX",
+      "message_ts": "1789276928.778369",
+      "date": "2026-09-13",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789276928778369",
+      "profile_url": "https://spar2025.slack.com/team/U0C0VHLLURX"
+    },
+    {
+      "name": "Angus Hoy",
+      "user_id": "U0C1N09NAJC",
+      "message_ts": "1789270730.053089",
+      "date": "2026-09-12",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789270730053089",
+      "profile_url": "https://spar2025.slack.com/team/U0C1N09NAJC"
+    },
+    {
+      "name": "Christian Classen",
+      "user_id": "U0C28PADFTJ",
+      "message_ts": "1789262039.437719",
+      "date": "2026-09-12",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789262039437719",
+      "profile_url": "https://spar2025.slack.com/team/U0C28PADFTJ"
+    },
+    {
+      "name": "Maya Francesca De Ganyar",
+      "user_id": "U0C0X9MA5E0",
+      "message_ts": "1789254764.332529",
+      "date": "2026-09-12",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789254764332529",
+      "profile_url": "https://spar2025.slack.com/team/U0C0X9MA5E0"
+    },
+    {
+      "name": "Ruby Rorty",
+      "user_id": "U0C0Z1V853R",
+      "message_ts": "1789253415.540899",
+      "date": "2026-09-12",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789253415540899",
+      "profile_url": "https://spar2025.slack.com/team/U0C0Z1V853R"
+    },
+    {
+      "name": "Feifan Liu",
+      "user_id": "U0C13Q92PQR",
+      "message_ts": "1789246278.903269",
+      "date": "2026-09-12",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789246278903269",
+      "profile_url": "https://spar2025.slack.com/team/U0C13Q92PQR"
+    },
+    {
+      "name": "Alex Eftimiades",
+      "user_id": "U0C1GARC8LR",
+      "message_ts": "1789246213.019689",
+      "date": "2026-09-12",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789246213019689",
+      "profile_url": "https://spar2025.slack.com/team/U0C1GARC8LR"
+    },
+    {
+      "name": "Anaya Mandal",
+      "user_id": "U0C0C8NCDLP",
+      "message_ts": "1789244710.630559",
+      "date": "2026-09-12",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789244710630559",
+      "profile_url": "https://spar2025.slack.com/team/U0C0C8NCDLP"
+    },
+    {
+      "name": "Emma Xing",
+      "user_id": "U0C1N0U0A8G",
+      "message_ts": "1789244140.132749",
+      "date": "2026-09-12",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789244140132749",
+      "profile_url": "https://spar2025.slack.com/team/U0C1N0U0A8G"
+    },
+    {
+      "name": "Rigel Cierniak",
+      "user_id": "U0C0C8X2E3Z",
+      "message_ts": "1789240771.736049",
+      "date": "2026-09-12",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789240771736049",
+      "profile_url": "https://spar2025.slack.com/team/U0C0C8X2E3Z"
+    },
+    {
+      "name": "Peter Stepper",
+      "user_id": "U0C0VHS2BJ5",
+      "message_ts": "1789227238.821809",
+      "date": "2026-09-12",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789227238821809",
+      "profile_url": "https://spar2025.slack.com/team/U0C0VHS2BJ5"
+    },
+    {
+      "name": "Christian Glass",
+      "user_id": "U0C0C8M7K9D",
+      "message_ts": "1789223741.083839",
+      "date": "2026-09-12",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789223741083839",
+      "profile_url": "https://spar2025.slack.com/team/U0C0C8M7K9D"
+    },
+    {
+      "name": "Lenz Dagohoy",
+      "user_id": "U0C0C8T51RD",
+      "message_ts": "1789212652.738389",
+      "date": "2026-09-12",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789212652738389",
+      "profile_url": "https://spar2025.slack.com/team/U0C0C8T51RD"
+    },
+    {
+      "name": "Lucy Kappai",
+      "user_id": "U0C0P3M836Z",
+      "message_ts": "1789210200.229569",
+      "date": "2026-09-12",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789210200229569",
+      "profile_url": "https://spar2025.slack.com/team/U0C0P3M836Z"
+    },
+    {
+      "name": "Ahmed",
+      "user_id": "U0C0P3Z0FHT",
+      "message_ts": "1789199895.237619",
+      "date": "2026-09-12",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789199895237619",
+      "profile_url": "https://spar2025.slack.com/team/U0C0P3Z0FHT"
+    },
+    {
+      "name": "Chakresh Singh",
+      "user_id": "U0C0VHJJNE5",
+      "message_ts": "1789194364.711489",
+      "date": "2026-09-12",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789194364711489",
+      "profile_url": "https://spar2025.slack.com/team/U0C0VHJJNE5"
+    },
+    {
+      "name": "Ziv",
+      "user_id": "U0C1N0VGNSC",
+      "message_ts": "1789182842.958699",
+      "date": "2026-09-11",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789182842958699",
+      "profile_url": "https://spar2025.slack.com/team/U0C1N0VGNSC"
+    },
+    {
+      "name": "Carlos Guerrero Alvarez",
+      "user_id": "U0BV7104W4W",
+      "message_ts": "1789181671.005659",
+      "date": "2026-09-11",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789181671005659",
+      "profile_url": "https://spar2025.slack.com/team/U0BV7104W4W"
+    },
+    {
+      "name": "Haotian Zong",
+      "user_id": "U0C0C8QFHSB",
+      "message_ts": "1789181294.798019",
+      "date": "2026-09-11",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789181294798019",
+      "profile_url": "https://spar2025.slack.com/team/U0C0C8QFHSB"
+    },
+    {
+      "name": "Benjamin Chrepta",
+      "user_id": "U0C0C8W5NUX",
+      "message_ts": "1789179240.818499",
+      "date": "2026-09-11",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789179240818499",
+      "profile_url": "https://spar2025.slack.com/team/U0C0C8W5NUX"
+    },
+    {
+      "name": "Abass",
+      "user_id": "U0C1CSCV4AY",
+      "message_ts": "1789171611.111059",
+      "date": "2026-09-11",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789171611111059",
+      "profile_url": "https://spar2025.slack.com/team/U0C1CSCV4AY"
+    },
+    {
+      "name": "Cat McGee",
+      "user_id": "U0C0RM5JVRU",
+      "message_ts": "1789166670.999809",
+      "date": "2026-09-11",
+      "roles": ["mentee"],
+      "role_evidence": "Explicitly says ‘I'm a mentee’ in the Fall 2026 introduction.",
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789166670999809",
+      "profile_url": "https://spar2025.slack.com/team/U0C0RM5JVRU"
+    },
+    {
+      "name": "Mahmoud Shabana",
+      "user_id": "U0C0C8KDTBR",
+      "message_ts": "1789166482.551319",
+      "date": "2026-09-11",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789166482551319",
+      "profile_url": "https://spar2025.slack.com/team/U0C0C8KDTBR"
+    },
+    {
+      "name": "Navneet",
+      "user_id": "U0C0X9EHA20",
+      "message_ts": "1789166469.265909",
+      "date": "2026-09-11",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789166469265909",
+      "profile_url": "https://spar2025.slack.com/team/U0C0X9EHA20"
+    },
+    {
+      "name": "Leo Hsu",
+      "user_id": "U0C0MCS73R9",
+      "message_ts": "1789160825.696239",
+      "date": "2026-09-11",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789160825696239",
+      "profile_url": "https://spar2025.slack.com/team/U0C0MCS73R9"
+    },
+    {
+      "name": "Viju Sudhi",
+      "user_id": "U0C195EPM42",
+      "message_ts": "1789157317.826869",
+      "date": "2026-09-11",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789157317826869",
+      "profile_url": "https://spar2025.slack.com/team/U0C195EPM42"
+    },
+    {
+      "name": "Kaia Schweig",
+      "user_id": "U0C0VKM1B5H",
+      "message_ts": "1789154432.982539",
+      "date": "2026-09-11",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789154432982539",
+      "profile_url": "https://spar2025.slack.com/team/U0C0VKM1B5H"
+    },
+    {
+      "name": "Cole Alexander Niblett",
+      "user_id": "U0C0TJ1HP2N",
+      "message_ts": "1789154007.222609",
+      "date": "2026-09-11",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789154007222609",
+      "profile_url": "https://spar2025.slack.com/team/U0C0TJ1HP2N"
+    },
+    {
+      "name": "Hannah Sun",
+      "user_id": "U0C0TJ8GFCJ",
+      "message_ts": "1789153612.227489",
+      "date": "2026-09-11",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789153612227489",
+      "profile_url": "https://spar2025.slack.com/team/U0C0TJ8GFCJ"
+    },
+    {
+      "name": "Natraj Annamalai Vairavan",
+      "user_id": "U0C1N0WLZJL",
+      "message_ts": "1789151767.250309",
+      "date": "2026-09-11",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789151767250309",
+      "profile_url": "https://spar2025.slack.com/team/U0C1N0WLZJL"
+    },
+    {
+      "name": "Rashika Kukreja",
+      "user_id": "U0C13Q4DZR7",
+      "message_ts": "1789151580.069589",
+      "date": "2026-09-11",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789151580069589",
+      "profile_url": "https://spar2025.slack.com/team/U0C13Q4DZR7"
+    },
+    {
+      "name": "Varun Iyer",
+      "user_id": "U0C0TJEKXT4",
+      "message_ts": "1789149601.903629",
+      "date": "2026-09-11",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789149601903629",
+      "profile_url": "https://spar2025.slack.com/team/U0C0TJEKXT4"
+    },
+    {
+      "name": "John Gaynor",
+      "user_id": "U0C0VHC1CN5",
+      "message_ts": "1789148635.677409",
+      "date": "2026-09-11",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789148635677409",
+      "profile_url": "https://spar2025.slack.com/team/U0C0VHC1CN5"
+    },
+    {
+      "name": "Adriana",
+      "user_id": "U0C0X9D5VPE",
+      "message_ts": "1789148021.810649",
+      "date": "2026-09-11",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789148021810649",
+      "profile_url": "https://spar2025.slack.com/team/U0C0X9D5VPE"
+    },
+    {
+      "name": "Anastasia Chernysheva",
+      "user_id": "U0C0LFH47PH",
+      "message_ts": "1789146615.047899",
+      "date": "2026-09-11",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789146615047899",
+      "profile_url": "https://spar2025.slack.com/team/U0C0LFH47PH"
+    },
+    {
+      "name": "Gijs van Dijk",
+      "user_id": "U0C0TJ0M3NW",
+      "message_ts": "1789146499.926329",
+      "date": "2026-09-11",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789146499926329",
+      "profile_url": "https://spar2025.slack.com/team/U0C0TJ0M3NW"
+    },
+    {
+      "name": "Hannah Arjonillo",
+      "user_id": "U0C1N0SH464",
+      "message_ts": "1789139357.362959",
+      "date": "2026-09-11",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789139357362959",
+      "profile_url": "https://spar2025.slack.com/team/U0C1N0SH464"
+    },
+    {
+      "name": "Chad",
+      "user_id": "U0C0X9BN6UC",
+      "message_ts": "1789137817.853329",
+      "date": "2026-09-11",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789137817853329",
+      "profile_url": "https://spar2025.slack.com/team/U0C0X9BN6UC"
+    },
+    {
+      "name": "Oscar Yasunaga",
+      "user_id": "U0C0RMESZQW",
+      "message_ts": "1789130796.937199",
+      "date": "2026-09-11",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789130796937199",
+      "profile_url": "https://spar2025.slack.com/team/U0C0RMESZQW"
+    },
+    {
+      "name": "Sarah Azouvi",
+      "user_id": "U0C15GE0DC4",
+      "message_ts": "1789130670.348839",
+      "date": "2026-09-11",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789130670348839",
+      "profile_url": "https://spar2025.slack.com/team/U0C15GE0DC4"
+    },
+    {
+      "name": "Elmina Marriott",
+      "user_id": "U0C0X976TJQ",
+      "message_ts": "1789129887.694769",
+      "date": "2026-09-11",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789129887694769",
+      "profile_url": "https://spar2025.slack.com/team/U0C0X976TJQ"
+    },
+    {
+      "name": "Eilaf Mohamed",
+      "user_id": "U0C0X9DRRK6",
+      "message_ts": "1789127262.081689",
+      "date": "2026-09-11",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789127262081689",
+      "profile_url": "https://spar2025.slack.com/team/U0C0X9DRRK6"
+    },
+    {
+      "name": "Luke Meyers",
+      "user_id": "U0C1N0MQARE",
+      "message_ts": "1789120386.216259",
+      "date": "2026-09-11",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789120386216259",
+      "profile_url": "https://spar2025.slack.com/team/U0C1N0MQARE"
+    },
+    {
+      "name": "Ali Acker",
+      "user_id": "U0C0MCARCUT",
+      "message_ts": "1789118929.937839",
+      "date": "2026-09-11",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789118929937839",
+      "profile_url": "https://spar2025.slack.com/team/U0C0MCARCUT"
+    },
+    {
+      "name": "Sakshi Chaubey",
+      "user_id": "U0C0RMLBRQW",
+      "message_ts": "1789116149.646249",
+      "date": "2026-09-11",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789116149646249",
+      "profile_url": "https://spar2025.slack.com/team/U0C0RMLBRQW"
+    },
+    {
+      "name": "Carlos Gorostiza",
+      "user_id": "U0C0X9L8FRA",
+      "message_ts": "1789096038.335589",
+      "date": "2026-09-10",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789096038335589",
+      "profile_url": "https://spar2025.slack.com/team/U0C0X9L8FRA"
+    },
+    {
+      "name": "Harsh Sharma",
+      "user_id": "U0C0ZU9MXPY",
+      "message_ts": "1789089785.218789",
+      "date": "2026-09-10",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789089785218789",
+      "profile_url": "https://spar2025.slack.com/team/U0C0ZU9MXPY"
+    },
+    {
+      "name": "Srujanajali Medicherla",
+      "user_id": "U0C0RM8HJB0",
+      "message_ts": "1789084267.261679",
+      "date": "2026-09-10",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789084267261679",
+      "profile_url": "https://spar2025.slack.com/team/U0C0RM8HJB0"
+    },
+    {
+      "name": "Cameron Jordan",
+      "user_id": "U0C0C8VV5T9",
+      "message_ts": "1789082119.119509",
+      "date": "2026-09-10",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789082119119509",
+      "profile_url": "https://spar2025.slack.com/team/U0C0C8VV5T9"
+    },
+    {
+      "name": "Chris Reuter",
+      "user_id": "U0C0P3UJKFX",
+      "message_ts": "1789078121.258329",
+      "date": "2026-09-10",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789078121258329",
+      "profile_url": "https://spar2025.slack.com/team/U0C0P3UJKFX"
+    },
+    {
+      "name": "Agastya Sridharan",
+      "user_id": "U0C0RMJCU5C",
+      "message_ts": "1789076018.107879",
+      "date": "2026-09-10",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789076018107879",
+      "profile_url": "https://spar2025.slack.com/team/U0C0RMJCU5C"
+    },
+    {
+      "name": "Ricardo Escudero Alejos",
+      "user_id": "U0C0VHG5UQZ",
+      "message_ts": "1789075857.366909",
+      "date": "2026-09-10",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789075857366909",
+      "profile_url": "https://spar2025.slack.com/team/U0C0VHG5UQZ"
+    },
+    {
+      "name": "Heming Liu",
+      "user_id": "U0C0TJS4WUS",
+      "message_ts": "1789074561.509939",
+      "date": "2026-09-10",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789074561509939",
+      "profile_url": "https://spar2025.slack.com/team/U0C0TJS4WUS"
+    },
+    {
+      "name": "Arseniy Kryazhev",
+      "user_id": "U0C0TJAQS90",
+      "message_ts": "1789068107.433599",
+      "date": "2026-09-10",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789068107433599",
+      "profile_url": "https://spar2025.slack.com/team/U0C0TJAQS90"
+    },
+    {
+      "name": "Aniket Deshpande",
+      "user_id": "U0AE7FLS66S",
+      "message_ts": "1789065735.520749",
+      "date": "2026-09-10",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789065735520749",
+      "profile_url": "https://spar2025.slack.com/team/U0AE7FLS66S"
+    },
+    {
+      "name": "Nir Mandelker",
+      "user_id": "U0C0MCJU9CK",
+      "message_ts": "1789063775.013769",
+      "date": "2026-09-10",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789063775013769",
+      "profile_url": "https://spar2025.slack.com/team/U0C0MCJU9CK"
+    },
+    {
+      "name": "Steven S. Kim",
+      "user_id": "U0C0RMKS4G6",
+      "message_ts": "1789061827.517419",
+      "date": "2026-09-10",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789061827517419",
+      "profile_url": "https://spar2025.slack.com/team/U0C0RMKS4G6"
+    },
+    {
+      "name": "Ian Lee (Chih-Hsuan Lee)",
+      "user_id": "U0C0X9NSHRS",
+      "message_ts": "1789060524.749799",
+      "date": "2026-09-10",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789060524749799",
+      "profile_url": "https://spar2025.slack.com/team/U0C0X9NSHRS"
+    },
+    {
+      "name": "Anouar El Moumane",
+      "user_id": "U0C0P3VCG6R",
+      "message_ts": "1789058454.677319",
+      "date": "2026-09-10",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789058454677319",
+      "profile_url": "https://spar2025.slack.com/team/U0C0P3VCG6R"
+    },
+    {
+      "name": "Jemal",
+      "user_id": "U0C0C8PT1NK",
+      "message_ts": "1789058389.122409",
+      "date": "2026-09-10",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789058389122409",
+      "profile_url": "https://spar2025.slack.com/team/U0C0C8PT1NK"
+    },
+    {
+      "name": "Shwetanshu Shekhar",
+      "user_id": "U0C0VHA9MB3",
+      "message_ts": "1789057572.875139",
+      "date": "2026-09-10",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789057572875139",
+      "profile_url": "https://spar2025.slack.com/team/U0C0VHA9MB3"
+    },
+    {
+      "name": "Chase Broderick",
+      "user_id": "U0C0MCCBWAF",
+      "message_ts": "1789057412.862379",
+      "date": "2026-09-10",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789057412862379",
+      "profile_url": "https://spar2025.slack.com/team/U0C0MCCBWAF"
+    },
+    {
+      "name": "Daneal O'Habib",
+      "user_id": "U0C0RLZJLTY",
+      "message_ts": "1789055700.081289",
+      "date": "2026-09-10",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789055700081289",
+      "profile_url": "https://spar2025.slack.com/team/U0C0RLZJLTY"
+    },
+    {
+      "name": "Sarah Quayyum",
+      "user_id": "U0C1N0X218Q",
+      "message_ts": "1789055506.668229",
+      "date": "2026-09-10",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789055506668229",
+      "profile_url": "https://spar2025.slack.com/team/U0C1N0X218Q"
+    },
+    {
+      "name": "Amogh Agrawal",
+      "user_id": "U0C0MCG89V1",
+      "message_ts": "1789055125.719629",
+      "date": "2026-09-10",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789055125719629",
+      "profile_url": "https://spar2025.slack.com/team/U0C0MCG89V1"
+    },
+    {
+      "name": "Elias Krasny",
+      "user_id": "U0C0VHHSXH7",
+      "message_ts": "1789055093.001159",
+      "date": "2026-09-10",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789055093001159",
+      "profile_url": "https://spar2025.slack.com/team/U0C0VHHSXH7"
+    },
+    {
+      "name": "Shravan Balaji",
+      "user_id": "U0C05MM0YUB",
+      "message_ts": "1789054430.759089",
+      "date": "2026-09-10",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789054430759089",
+      "profile_url": "https://spar2025.slack.com/team/U0C05MM0YUB"
+    },
+    {
+      "name": "Cory Wu",
+      "user_id": "U0C0X9KTJR2",
+      "message_ts": "1789053768.809099",
+      "date": "2026-09-10",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789053768809099",
+      "profile_url": "https://spar2025.slack.com/team/U0C0X9KTJR2"
+    },
+    {
+      "name": "James Elmore",
+      "user_id": "U0C1N11Q62C",
+      "message_ts": "1789053552.745189",
+      "date": "2026-09-10",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789053552745189",
+      "profile_url": "https://spar2025.slack.com/team/U0C1N11Q62C"
+    },
+    {
+      "name": "Bo (Foluso Olabode Ogunlana)",
+      "user_id": "U0C0P3WFR4M",
+      "message_ts": "1789052710.931499",
+      "date": "2026-09-10",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789052710931499",
+      "profile_url": "https://spar2025.slack.com/team/U0C0P3WFR4M"
+    },
+    {
+      "name": "Wentian Zhu",
+      "user_id": "U0C0C8TFVT9",
+      "message_ts": "1789052590.425589",
+      "date": "2026-09-10",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789052590425589",
+      "profile_url": "https://spar2025.slack.com/team/U0C0C8TFVT9"
+    },
+    {
+      "name": "Anna Gardner",
+      "user_id": "U0C0X99GKQU",
+      "message_ts": "1789052420.117469",
+      "date": "2026-09-10",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789052420117469",
+      "profile_url": "https://spar2025.slack.com/team/U0C0X99GKQU"
+    },
+    {
+      "name": "Tianqin Meng",
+      "user_id": "U0C0P3RQE69",
+      "message_ts": "1789052036.662519",
+      "date": "2026-09-10",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789052036662519",
+      "profile_url": "https://spar2025.slack.com/team/U0C0P3RQE69"
+    },
+    {
+      "name": "Paul Davidson",
+      "user_id": "U0C0RM3A4UW",
+      "message_ts": "1789050282.713979",
+      "date": "2026-09-10",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789050282713979",
+      "profile_url": "https://spar2025.slack.com/team/U0C0RM3A4UW"
+    },
+    {
+      "name": "Parth Vashisht",
+      "user_id": "U0C0X9LMR6G",
+      "message_ts": "1789047601.025579",
+      "date": "2026-09-10",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789047601025579",
+      "profile_url": "https://spar2025.slack.com/team/U0C0X9LMR6G"
+    },
+    {
+      "name": "Tommaso Cerruti",
+      "user_id": "U0C0P3Q02AH",
+      "message_ts": "1789043278.371989",
+      "date": "2026-09-10",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789043278371989",
+      "profile_url": "https://spar2025.slack.com/team/U0C0P3Q02AH"
+    },
+    {
+      "name": "Sergei Kudriashov",
+      "user_id": "U0C0VHKULBT",
+      "message_ts": "1789043041.319559",
+      "date": "2026-09-10",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789043041319559",
+      "profile_url": "https://spar2025.slack.com/team/U0C0VHKULBT"
+    },
+    {
+      "name": "Alex Flores",
+      "user_id": "U0C0C8UBWUF",
+      "message_ts": "1789040812.793059",
+      "date": "2026-09-10",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789040812793059",
+      "profile_url": "https://spar2025.slack.com/team/U0C0C8UBWUF"
+    },
+    {
+      "name": "Samuele Punzo",
+      "user_id": "U0C0C8K3V6K",
+      "message_ts": "1789037193.271939",
+      "date": "2026-09-10",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789037193271939",
+      "profile_url": "https://spar2025.slack.com/team/U0C0C8K3V6K"
+    },
+    {
+      "name": "Elisabetta Rocchetti",
+      "user_id": "U0C0MCS0LEP",
+      "message_ts": "1789036374.947809",
+      "date": "2026-09-10",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789036374947809",
+      "profile_url": "https://spar2025.slack.com/team/U0C0MCS0LEP"
+    },
+    {
+      "name": "Maximilian Wendlinger",
+      "user_id": "U0C0C94KHJT",
+      "message_ts": "1789028150.859229",
+      "date": "2026-09-10",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789028150859229",
+      "profile_url": "https://spar2025.slack.com/team/U0C0C94KHJT"
+    },
+    {
+      "name": "Jason Starace",
+      "user_id": "U0C0VHC8XBK",
+      "message_ts": "1789026667.177979",
+      "date": "2026-09-10",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789026667177979",
+      "profile_url": "https://spar2025.slack.com/team/U0C0VHC8XBK"
+    },
+    {
+      "name": "Harshvardhan Saini",
+      "user_id": "U0C0MCES5TM",
+      "message_ts": "1789026139.933959",
+      "date": "2026-09-10",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789026139933959",
+      "profile_url": "https://spar2025.slack.com/team/U0C0MCES5TM"
+    },
+    {
+      "name": "Vamshi Sunku Mohan",
+      "user_id": "U0C0MCQF0F5",
+      "message_ts": "1789023719.628919",
+      "date": "2026-09-10",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789023719628919",
+      "profile_url": "https://spar2025.slack.com/team/U0C0MCQF0F5"
+    },
+    {
+      "name": "Igor Pereverzev",
+      "user_id": "U0C0VHY0UKT",
+      "message_ts": "1789022134.942109",
+      "date": "2026-09-10",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789022134942109",
+      "profile_url": "https://spar2025.slack.com/team/U0C0VHY0UKT"
+    },
+    {
+      "name": "Jack Peng (Peng Kaiyuan)",
+      "user_id": "U0C1W7L5GGY",
+      "message_ts": "1789341027.137789",
+      "date": "2026-09-13",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789341027137789",
+      "profile_url": "https://spar2025.slack.com/team/U0C1W7L5GGY"
+    },
+    {
+      "name": "Jinwoo Ahn",
+      "user_id": "U0C13QH8UM7",
+      "message_ts": "1789338012.855389",
+      "date": "2026-09-13",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789338012855389",
+      "profile_url": "https://spar2025.slack.com/team/U0C13QH8UM7"
+    },
+    {
+      "name": "Alex Olhava",
+      "user_id": "U0C1N0D2DT2",
+      "message_ts": "1789337929.309779",
+      "date": "2026-09-13",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789337929309779",
+      "profile_url": "https://spar2025.slack.com/team/U0C1N0D2DT2"
+    },
+    {
+      "name": "Andrei Ionita",
+      "user_id": "U0C0P3SMHS9",
+      "message_ts": "1789337360.597409",
+      "date": "2026-09-13",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789337360597409",
+      "profile_url": "https://spar2025.slack.com/team/U0C0P3SMHS9"
+    },
+    {
+      "name": "Laith Rastanawi",
+      "user_id": "U0C0MCKUSAX",
+      "message_ts": "1789335342.246049",
+      "date": "2026-09-13",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789335342246049",
+      "profile_url": "https://spar2025.slack.com/team/U0C0MCKUSAX"
+    },
+    {
+      "name": "Juan Cadile",
+      "user_id": "U0BP9KY5LLE",
+      "message_ts": "1789332605.545569",
+      "date": "2026-09-13",
+      "roles": ["mentor"],
+      "role_evidence": "Explicitly says he is mentoring three Fall 2026 SPAR projects.",
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789332605545569",
+      "profile_url": "https://spar2025.slack.com/team/U0BP9KY5LLE"
+    },
+    {
+      "name": "Sai Suresh Macharla Vasu",
+      "user_id": "U0C0C8P5NDD",
+      "message_ts": "1789329581.358759",
+      "date": "2026-09-13",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789329581358759",
+      "profile_url": "https://spar2025.slack.com/team/U0C0C8P5NDD"
+    },
+    {
+      "name": "Jesica",
+      "user_id": "U0C1B4UCEQH",
+      "message_ts": "1789329385.341769",
+      "date": "2026-09-13",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789329385341769",
+      "profile_url": "https://spar2025.slack.com/team/U0C1B4UCEQH"
+    },
+    {
+      "name": "Christopher Harvey-Hawes",
+      "user_id": "U0C1FUAD0MU",
+      "message_ts": "1789322875.996109",
+      "date": "2026-09-13",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789322875996109",
+      "profile_url": "https://spar2025.slack.com/team/U0C1FUAD0MU"
+    },
+    {
+      "name": "Maria Spethmann",
+      "user_id": "U0C0X9X5BGU",
+      "message_ts": "1789321733.077989",
+      "date": "2026-09-13",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789321733077989",
+      "profile_url": "https://spar2025.slack.com/team/U0C0X9X5BGU"
+    },
+    {
+      "name": "Mackenzie O'Brien",
+      "user_id": "U0C1N0FA1FA",
+      "message_ts": "1789321574.818849",
+      "date": "2026-09-13",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789321574818849",
+      "profile_url": "https://spar2025.slack.com/team/U0C1N0FA1FA"
+    },
+    {
+      "name": "Daniel Graham",
+      "user_id": "U0C0MCLKSLB",
+      "message_ts": "1789321333.158749",
+      "date": "2026-09-13",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789321333158749",
+      "profile_url": "https://spar2025.slack.com/team/U0C0MCLKSLB"
+    },
+    {
+      "name": "Joey Kaji",
+      "user_id": "U0C1N0RKXRN",
+      "message_ts": "1789320922.681329",
+      "date": "2026-09-13",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789320922681329",
+      "profile_url": "https://spar2025.slack.com/team/U0C1N0RKXRN"
+    },
+    {
+      "name": "Kailer Laino",
+      "user_id": "U09F450TDUH",
+      "message_ts": "1789319971.337929",
+      "date": "2026-09-13",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789319971337929",
+      "profile_url": "https://spar2025.slack.com/team/U09F450TDUH"
+    },
+    {
+      "name": "Long Yi",
+      "user_id": "U0C0TJ5CPQS",
+      "message_ts": "1789319966.855339",
+      "date": "2026-09-13",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789319966855339",
+      "profile_url": "https://spar2025.slack.com/team/U0C0TJ5CPQS"
+    },
+    {
+      "name": "Vaughn Papenhausen",
+      "user_id": "U0C0MCJSZDZ",
+      "message_ts": "1789319951.258429",
+      "date": "2026-09-13",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789319951258429",
+      "profile_url": "https://spar2025.slack.com/team/U0C0MCJSZDZ"
+    },
+    {
+      "name": "Thomas Finn",
+      "user_id": "U06M4FEUH4Z",
+      "message_ts": "1789319706.398799",
+      "date": "2026-09-13",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789319706398799",
+      "profile_url": "https://spar2025.slack.com/team/U06M4FEUH4Z"
+    },
+    {
+      "name": "Trevor Xing-Xie",
+      "user_id": "U0C0MCU67GT",
+      "message_ts": "1789319564.767799",
+      "date": "2026-09-13",
+      "roles": ["unknown"],
+      "role_evidence": null,
+      "source_url": "https://spar2025.slack.com/archives/C04NZ0MMSDV/p1789319564767799",
+      "profile_url": "https://spar2025.slack.com/team/U0C0MCU67GT"
+    }
+  ]
+}
