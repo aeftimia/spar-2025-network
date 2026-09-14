@@ -1,0 +1,9 @@
+{
+  "U0BP9KY5LLE": {"location":{"city":"Rochester","lat":43.157,"lng":-77.608,"evidence":"Inferred from current PhD affiliation: University of Rochester","inferred":true}},
+  "U0A5EN4QUHL": {"location":{"city":"Abu Dhabi","lat":24.454,"lng":54.377,"evidence":"Inferred from current PhD affiliation: MBZUAI","inferred":true}},
+  "U05SDBB452T": {"location":{"city":"Stanford","lat":37.428,"lng":-122.169,"evidence":"Inferred from current CS MS affiliation: Stanford","inferred":true}},
+  "U04P8A6V5D4": {"location":{"city":"Berkeley","lat":37.872,"lng":-122.273,"evidence":"Inferred from current PhD affiliation: UC Berkeley","inferred":true}},
+  "U06LYF6TSBT": {"roles":["mentor"],"roleEvidence":"Introduction: mentoring the Steganographic Snowball project"},
+  "U06LK6K9GKG": {"roles":["mentor"],"roleEvidence":"Introduction: mentors a joint SPAR/AISC project"},
+  "U08BKH2CE0Z": {"roles":["mentee"],"roleEvidence":"Introduction: a mentee here; mentor role belongs to AI Safety Camp"}
+}

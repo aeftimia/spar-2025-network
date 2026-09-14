@@ -1,0 +1,34 @@
+node_modules
+
+dist
+
+# pnpm
+pnpm-lock.yaml
+.pnpm-debug.log*
+.pnpm-store/
+
+# sst
+.sst
+**/sst-env.d.ts
+**/.open-next/*
+
+# temporary files
+.#*
+
+# vim
+*.swp
+*.swo
+
+# .DS_Store files (including encoded variants)
+.DS_Store
+**/.DS_Store
+.!*!.DS_Store
+
+# .next
+.next/*
+
+# .env
+.env
+
+# TypeScript build cache
+*.tsbuildinfo
