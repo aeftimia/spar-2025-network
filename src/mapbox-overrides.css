@@ -1,0 +1,73 @@
+.people-map .mapboxgl-canvas {
+  outline: none;
+}
+
+.mapboxgl-ctrl-group {
+  border-radius: 9px;
+  overflow: hidden;
+  box-shadow: 0 1px 5px #142b4520 !important;
+}
+
+.mapboxgl-popup-content {
+  border-radius: 10px;
+  padding: 14px;
+  box-shadow: 0 5px 22px #142b4528;
+  min-width: 245px;
+}
+
+.mapbox-popup-heading {
+  font-size: 14px;
+  font-weight: 700;
+  color: #243248;
+  padding-right: 18px;
+}
+
+.mapbox-popup-subheading {
+  margin-top: 3px;
+  margin-bottom: 9px;
+  color: #8993a2;
+  font-size: 11px;
+}
+
+.mapbox-person-button {
+  display: block;
+  width: 100%;
+  border: 0;
+  border-radius: 7px;
+  background: transparent;
+  padding: 8px 9px;
+  text-align: left;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  color: #344158;
+  cursor: pointer;
+}
+
+.mapbox-person-button:hover,
+.mapbox-person-button:focus-visible {
+  background: #f0faf7;
+  outline: none;
+}
+
+.community-map-marker {
+  cursor: pointer;
+  transition: filter 120ms ease, transform 120ms ease;
+}
+
+.community-map-marker:hover {
+  filter: drop-shadow(0 2px 4px #10263f55);
+}
+
+.mapboxgl-ctrl-attrib {
+  font-size: 9px;
+}
+
+/* Fall 2026 introductions resolve to mentor or mentee; no third role is shown. */
+.map-legend span:last-child {
+  display: none;
+}
+
+.map-panel {
+  isolation: isolate;
+}
