@@ -1,6 +1,5 @@
 import { lazy, Suspense, useEffect, useMemo, useState } from "react";
 import {
-  ActionIcon,
   Avatar,
   Badge,
   Button,
@@ -15,7 +14,6 @@ import {
   Select,
   Stack,
   Text,
-  TextInput,
   Title,
 } from "@mantine/core";
 import {
@@ -31,7 +29,6 @@ import {
   IconSearch,
   IconUsers,
   IconWorld,
-  IconX,
 } from "@tabler/icons-react";
 import { dataset } from "./directory";
 import type { Person } from "./types";
@@ -57,7 +54,6 @@ const initials = (name: string) =>
 function initialState() {
   const params = new URLSearchParams(location.search);
   return {
-    q: params.get("q") || "",
     roles: params.has("roles")
       ? params
           .get("roles")!
@@ -72,7 +68,6 @@ function initialState() {
 
 export default function App() {
   const [initial] = useState(initialState);
-  const [q, setQ] = useState(initial.q);
   const [roles, setRoles] = useState(initial.roles);
   const [tags, setTags] = useState(initial.tags);
   const [mode, setMode] = useState(initial.mode);
@@ -85,7 +80,6 @@ export default function App() {
 
   useEffect(() => {
     const params = new URLSearchParams();
-    if (q) params.set("q", q);
     if (roles.length !== 2) params.set("roles", roles.join(","));
     tags.forEach((tag) => params.append("tag", tag));
     if (mode === "all") params.set("match", "all");
@@ -95,26 +89,10 @@ export default function App() {
       "",
       `${location.pathname}${params.size ? `?${params}` : ""}`,
     );
-  }, [q, roles, tags, mode, locationFilter]);
+  }, [roles, tags, mode, locationFilter]);
 
   const filtered = useMemo(() => {
-    const needle = q.trim().toLowerCase();
     return people.filter((person) => {
-      const searchable = [
-        person.name,
-        person.intro,
-        person.location?.city,
-        person.locationText,
-        person.project,
-        ...(person.backgroundResearchInterests || []),
-        ...(person.specificMeans || []),
-        ...(person.specificEnds || []),
-        ...(person.interests || []),
-        ...person.tags.map((tag) => tag.label),
-      ]
-        .filter(Boolean)
-        .join(" ")
-        .toLowerCase();
       const personTagKeys = new Set(
         person.tags.map((tag) => tagKey(tag.category, tag.label)),
       );
@@ -127,14 +105,16 @@ export default function App() {
         roles.some((role) => person.roles.includes(role)) &&
         (locationFilter === "all" ||
           (locationFilter === "mapped" ? !!person.location : !person.location)) &&
-        (!needle || searchable.includes(needle)) &&
         tagMatch
       );
     });
-  }, [roles, locationFilter, q, tags, mode]);
+  }, [roles, locationFilter, tags, mode]);
 
   const tagData = useMemo(() => {
-    const counts = new Map<string, { category: string; label: string; count: number }>();
+    const counts = new Map<
+      string,
+      { category: string; label: string; count: number }
+    >();
     people.forEach((person) =>
       person.tags.forEach((tag) => {
         const key = tagKey(tag.category, tag.label);
@@ -160,7 +140,6 @@ export default function App() {
   const mapped = filtered.filter((person) => person.location);
   const cities = new Set(mapped.map((person) => person.location!.city));
   const clear = () => {
-    setQ("");
     setRoles(["mentor", "mentee"]);
     setTags([]);
     setMode("any");
@@ -306,15 +285,6 @@ export default function App() {
         <aside className="filters">{filters}</aside>
         <main className="main">
           <div className="toolbar">
-            <TextInput
-              className="person-search"
-              aria-label="Search people"
-              placeholder="Search people, projects, methods, goals…"
-              leftSection={<IconSearch size={18} />}
-              value={q}
-              onChange={(event) => setQ(event.currentTarget.value)}
-              rightSection={q ? <ActionIcon aria-label="Clear search" variant="subtle" onClick={() => setQ("")}><IconX size={14} /></ActionIcon> : null}
-            />
             <Button className="mobile-filter-button" variant="default" leftSection={<IconFilter size={16} />} onClick={() => setMobileFilters(true)}>Filters</Button>
             <SegmentedControl
               value={view}
